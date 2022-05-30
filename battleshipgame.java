@@ -11,9 +11,10 @@ public class BattleshipGame implements ActionListener{
 	Timer theTimer = new Timer(1000/60, this);
 	
 	JMenuBar theBar = new JMenuBar();
-	JMenu theHome = new JMenu("Home");
-	JMenu theHelp = new JMenu("Help");
-	JMenu theQuit = new JMenu("Quit");
+	JMenu theMenu = new JMenu("Menu");
+	JMenuItem theHome = new JMenuItem("Home");
+	JMenuItem theHelp = new JMenuItem("Help");
+	JMenuItem theQuit = new JMenuItem("Quit");
 	
 	//Methods
 	public void actionPerformed(ActionEvent evt){
@@ -38,7 +39,11 @@ public class BattleshipGame implements ActionListener{
 		
 		//Add JItems
 		theFrame.setJMenuBar(theBar);
-		theBar.add(theHome);
+		
+		theBar.add(theMenu);
+		theMenu.add(theHome);
+		theMenu.add(theHelp);
+		theMenu.add(theQuit);
 		theHome.addActionListener(this);
 		theBar.add(theHelp);
 		theHelp.addActionListener(this);
