@@ -45,9 +45,7 @@ public class BattleshipGame implements ActionListener{
 		theMenu.add(theHelp);
 		theMenu.add(theQuit);
 		theHome.addActionListener(this);
-		theBar.add(theHelp);
 		theHelp.addActionListener(this);
-		theBar.add(theQuit);
 		theQuit.addActionListener(this);
 		
 		// Frame
