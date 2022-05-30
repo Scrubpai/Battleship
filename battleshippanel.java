@@ -23,6 +23,15 @@ public class BattleshipPanel extends JPanel{
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 80, 720, 1);
 		
+		g.setColor(Color.WHITE);
+		g.fillRect(720, 0, 1, 720);
+		
+		g.setColor(Color.WHITE);
+		g.fillRect(960, 0, 1, 720);
+		
+		g.setColor(Color.WHITE);
+		g.fillRect(960, 320, 320, 1);
+		
 	}
 	
 	
