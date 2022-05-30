@@ -20,23 +20,38 @@ public class BattleshipGame implements ActionListener{
 		if(evt.getSource() == theTimer){
 			thePanel.repaint();
 		}
+		
+		if(evt.getSource() == theHome){
+			System.out.println("Home");
+		}else if(evt.getSource() == theHelp){
+			System.out.println("Help");
+		}else if(evt.getSource() == theQuit){
+			System.out.println("Quit");
+			System.exit(1);
+		}
 	}
 	
 	//Constructor
 	public BattleshipGame(){
-		thePanel.setPreferredSize(new Dimension(1280, 720));
-		theFrame.setContentPane(thePanel);
-		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		theFrame.pack();
+		// Panel
+		thePanel.setPreferredSize(new Dimension(1280, 720));		
+		
+		//Add JItems
 		theFrame.setJMenuBar(theBar);
+		theBar.add(theHome);
+		theHome.addActionListener(this);
+		theBar.add(theHelp);
+		theHelp.addActionListener(this);
+		theBar.add(theQuit);
+		theQuit.addActionListener(this);
+		
+		// Frame
+		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		theFrame.setContentPane(thePanel);
+		theFrame.pack();
 		theFrame.setVisible(true);	
 		theFrame.setResizable(false);
 		theTimer.start();
-		
-		//Add JItems
-		theBar.add(theHome);
-		theBar.add(theHelp);
-		theBar.add(theQuit);
 	}
 
 	//Main Method
