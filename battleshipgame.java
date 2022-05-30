@@ -3,10 +3,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class battleshipgame implements ActionListener{
+public class BattleshipGame implements ActionListener{
 	//Properties
 	JFrame theFrame = new JFrame("Battleship");
-	battleshippanel thePanel = new battleshippanel();
+	BattleshipPanel thePanel = new BattleshipPanel();
 	Timer theTimer = new Timer(1000/60, this);
 	
 	//Methods
@@ -17,7 +17,7 @@ public class battleshipgame implements ActionListener{
 	}
 	
 	//Constructor
-	public battleshipgame(){
+	public BattleshipGame(){
 		thePanel.setPreferredSize(new Dimension(1280, 720));
 		theFrame.setContentPane(thePanel);
 		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,7 +29,7 @@ public class battleshipgame implements ActionListener{
 
 	//Main Method
 	public static void main(String[] args){
-		new battleshipgame();
+		new BattleshipGame();
 	}
 
 

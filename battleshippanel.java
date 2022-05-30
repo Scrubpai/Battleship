@@ -7,13 +7,18 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-public class battleshippanel extends JPanel{
+public class BattleshipPanel extends JPanel{
 	//Properties
 	
 	//Methods
+	public void paintComponent(Graphics g){
+		
+	}
+	
 	
 	//Constructor
-	public battleshippanel(){
+	public BattleshipPanel(){
 		super();
+		
 	}
 }
