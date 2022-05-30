@@ -12,6 +12,16 @@ public class BattleshipPanel extends JPanel{
 	
 	//Methods
 	public void paintComponent(Graphics g){
+		//Background
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, 1280, 720);
+		
+		//Create Lines to split up stuff
+		g.setColor(Color.WHITE);
+		g.fillRect(80, 0, 1, 720);
+		
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 80, 720, 1);
 		
 	}
 	
