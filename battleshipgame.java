@@ -8,6 +8,10 @@ public class BattleshipGame implements ActionListener{
 	//Properties
 	JFrame theFrame = new JFrame("Battleship");
 	BattleshipPanel thePanel = new BattleshipPanel();
+	
+	//Help Panel
+	BattleshipHelpPanel helpPanel = new BattleshipHelpPanel();
+	
 	Timer theTimer = new Timer(1000/60, this);
 	
 	JMenuBar theBar = new JMenuBar();
@@ -26,6 +30,10 @@ public class BattleshipGame implements ActionListener{
 			System.out.println("Home");
 		}else if(evt.getSource() == theHelp){
 			System.out.println("Help");
+			theFrame.setContentPane(helpPanel);
+			theFrame.pack();
+			helpPanel.repaint();
+			
 		}else if(evt.getSource() == theQuit){
 			System.out.println("Quit");
 			System.exit(1);
@@ -54,6 +62,11 @@ public class BattleshipGame implements ActionListener{
 		theFrame.pack();
 		theFrame.setVisible(true);	
 		theFrame.setResizable(false);
+		
+		//Bring in the help panel if you click help on the menu
+		helpPanel.setLayout(null);
+		helpPanel.setPreferredSize(new Dimension(1280, 720));
+		
 		theTimer.start();
 	}
 

@@ -21,6 +21,8 @@ public class BattleshipPanel extends JPanel{
 	
 	//Methods
 	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		
 		//Background
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1280, 720);
