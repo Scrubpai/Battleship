@@ -7,7 +7,7 @@ import java.io.*;
 public class BattleshipGame implements ActionListener{
 	//Properties
 	JFrame theFrame = new JFrame("Battleship");
-	BattleshipPanel thePanel = new BattleshipPanel();
+	BattleshipPlayPanel playPanel = new BattleshipPlayPanel();
 	
 	//Help Panel
 	BattleshipHelpPanel helpPanel = new BattleshipHelpPanel();
@@ -23,7 +23,7 @@ public class BattleshipGame implements ActionListener{
 	//Methods
 	public void actionPerformed(ActionEvent evt){
 		if(evt.getSource() == theTimer){
-			thePanel.repaint();
+			playPanel.repaint();
 		}
 		
 		if(evt.getSource() == theHome){
@@ -43,7 +43,7 @@ public class BattleshipGame implements ActionListener{
 	//Constructor
 	public BattleshipGame(){
 		// Panel
-		thePanel.setPreferredSize(new Dimension(1280, 720));		
+		playPanel.setPreferredSize(new Dimension(1280, 720));		
 		
 		//Add JItems
 		theFrame.setJMenuBar(theBar);
@@ -58,7 +58,7 @@ public class BattleshipGame implements ActionListener{
 		
 		// Frame
 		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		theFrame.setContentPane(thePanel);
+		theFrame.setContentPane(playPanel);
 		theFrame.pack();
 		theFrame.setVisible(true);	
 		theFrame.setResizable(false);

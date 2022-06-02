@@ -7,7 +7,7 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-public class BattleshipPanel extends JPanel{
+public class BattleshipPlayPanel extends JPanel{
 	//Properties
 	
 	//Buffering Images
@@ -55,7 +55,7 @@ public class BattleshipPanel extends JPanel{
 	
 	
 	//Constructor
-	public BattleshipPanel(){
+	public BattleshipPlayPanel(){
 		super();
 		
 		//Try Catch Images
