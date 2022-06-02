@@ -16,7 +16,6 @@ public class BattleshipGame implements ActionListener{
 	
 	JMenuBar theBar = new JMenuBar();
 	JMenu theMenu = new JMenu("Menu");
-	JMenuItem theHome = new JMenuItem("Home");
 	JMenuItem theHelp = new JMenuItem("Help");
 	JMenuItem theQuit = new JMenuItem("Quit");
 	
@@ -26,9 +25,7 @@ public class BattleshipGame implements ActionListener{
 			playPanel.repaint();
 		}
 		
-		if(evt.getSource() == theHome){
-			System.out.println("Home");
-		}else if(evt.getSource() == theHelp){
+		if(evt.getSource() == theHelp){
 			System.out.println("Help");
 			theFrame.setContentPane(helpPanel);
 			theFrame.pack();
@@ -49,10 +46,8 @@ public class BattleshipGame implements ActionListener{
 		theFrame.setJMenuBar(theBar);
 		
 		theBar.add(theMenu);
-		theMenu.add(theHome);
 		theMenu.add(theHelp);
 		theMenu.add(theQuit);
-		theHome.addActionListener(this);
 		theHelp.addActionListener(this);
 		theQuit.addActionListener(this);
 		
