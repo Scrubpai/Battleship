@@ -1,14 +1,19 @@
 public class Ship {
 	// Properties
 	public String strName;
-	public int intSize;
+	private int intHealth;
 	private int intPositions[][];
-	private char chrOrientation = 'H'; // Or V for vertical
+	private char chrOrientation; // Or V for vertical
+	public boolean blnAlive = true;
 	
 	// Methods
-	public boolean chkHit(int intRow, int intCol) {
-		for (int intCount=1; intCount<=intSize; intCount++) {
+	public boolean checkHit(int intRow, int intCol) {
+		for (int intCount=1; intCount<=intHealth; intCount++) {
 			if (intPositions[intCount][0] == intRow && intPositions[intCount][1] == intCol) {
+				intHealth--;
+				if (intHealth == 0) {
+					blnAlive = false;
+				}
 				return true;
 			}
 		}
@@ -16,10 +21,32 @@ public class Ship {
 		return false;
 	}
 	
+	public int getHealth() {
+		return intHealth;
+	}
+	
 	// Constructor
-	public Ship(String strName, int intSize) {
+	public Ship(String strName, int intHealth, int intRow, int intCol, char chrOrientation) {
 		this.strName = strName;
-		this.intSize = intSize;
-		intPositions = new int[intSize+1][2];
+		this.intHealth = intHealth;
+		intPositions = new int[intHealth+1][2];
+		
+		if (chrOrientation == 'H') { // Horizontal
+			for (int intCount=1; intCount<=intHealth; intCount++) {
+				intPositions[intCount][0] = intRow;
+				intPositions[intCount][1] = intCol+intCount-1;
+			}
+		} else { // Vertical
+			for (int intCount=1; intCount<=intHealth; intCount++) {
+				intPositions[intCount][0] = intRow+intCount-1;
+				intPositions[intCount][1] = intCol;
+			}
+		}
+	}
+	
+	public Ship(String strName, int intHealth) {
+		this.strName = strName;
+		this.intHealth = intHealth;
+		intPositions = new int[intHealth+1][2];
 	}
 }
