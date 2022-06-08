@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class BattleshipHelpPanel extends JPanel{
 	//Properties
 	//Buffered reader for the image
-	//BufferedImage imgHelp = null;
+	BufferedImage imgHelp = null;
 	
 	//Methods
 	public void paintComponent(Graphics g){
@@ -19,17 +19,17 @@ public class BattleshipHelpPanel extends JPanel{
 		g.fillRect(0, 0, 1280, 720);
 		
 		//Adjust coordinates of the image
-		//g.drawImage(image, 0, 50, null);
+		g.drawImage(imgHelp, 0, 0, null);
 	}
 	//Constructor
 	public BattleshipHelpPanel(){
         super();
-       /* try{
+        try{
 			//Import the help image
-            imgHelp = ImageIO.read(new File(""));
+            imgHelp = ImageIO.read(new File("Assets/Sprites/help.png"));
         }catch(IOException e){
             System.out.println("Error: Help Image");
-        } */
+        } 
     }
 	
 }
