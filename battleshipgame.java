@@ -25,6 +25,9 @@ public class BattleshipGame implements ActionListener{
 	JMenuItem theQuit = new JMenuItem("Quit");
 	JMenuItem theHome = new JMenuItem("Home");
 	JMenuItem thePlay = new JMenuItem("Play");
+	JButton playButton = new JButton("Play");
+	JButton helpButton = new JButton("Help");
+	JButton quitButton = new JButton("Quit");
 	
 	//Methods
 	public void actionPerformed(ActionEvent evt){
@@ -61,6 +64,7 @@ public class BattleshipGame implements ActionListener{
 		//Add JItems
 		theFrame.setJMenuBar(theBar);
 		
+		homePanel.add(playButton);
 		theBar.add(theMenu);
 		theMenu.add(theHome);
 		theMenu.add(thePlay);
