@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 
 public class BattleshipHomePanel extends JPanel{
 	//Properties
+	//Buffered reader for the image
+	BufferedImage imgLogo = null;
 	
 	//Methods
 	public void paintComponent(Graphics g){
@@ -15,10 +17,19 @@ public class BattleshipHomePanel extends JPanel{
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, 1280, 720);
 		
+		//Adjust coordinates of the image
+		g.drawImage(imgLogo, 0, 0, null);
+		
 	}
 	
 	//Constructor
 	public BattleshipHomePanel(){
 		super();
+		try{
+			//Import the help image
+            imgLogo = ImageIO.read(new File("Assets/Sprites/battleshiplogo.png"));
+        }catch(IOException e){
+            System.out.println("Error: logo Image");
+        } 
 	}
 }
