@@ -8,9 +8,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 public class BattleshipPlayPanel extends JPanel{
-	//Properties
+	// Properties
+	boolean blnPlayer1 = false;
 	
-	//Buffering Images
+	// Buffering Images
 	BufferedImage imgLetters = null;
 	BufferedImage imgNumbers = null;
 	BufferedImage imgWater = null;
@@ -19,15 +20,17 @@ public class BattleshipPlayPanel extends JPanel{
 	BufferedImage imgPause = null;
 	
 	
-	//Methods
+	// Methods
+	
+	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
-		//Background
+		// Background
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1280, 720);
 		
-		//Draw Images
+		// Draw Images
 		g.drawImage(imgPause, 0, 0, null);
 		g.drawImage(imgLetters, 80, 0, null);
 		g.drawImage(imgNumbers, 0, 80, null);
@@ -35,7 +38,14 @@ public class BattleshipPlayPanel extends JPanel{
 		g.drawImage(imgBox, 720, 0, null);
 		g.drawImage(imgMinimap, 960, 0, null);
 		
-		//Create Lines to split up stuff
+		// Draw Ships
+		if (blnPlayer1) { // Player 1
+			
+		} else { // Player 2
+			
+		}
+		
+		// Create Lines to split up stuff
 		g.setColor(Color.WHITE);
 		g.fillRect(80, 0, 1, 720);
 		
@@ -54,11 +64,11 @@ public class BattleshipPlayPanel extends JPanel{
 	}
 	
 	
-	//Constructor
+	// Constructor
 	public BattleshipPlayPanel(){
 		super();
 		
-		//Try Catch Images
+		// Try Catch Images
 		try{
 			imgPause = ImageIO.read(new File("Assets/Sprites/BattleshipPause.png"));
 		}catch(IOException e){
