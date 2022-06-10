@@ -8,6 +8,7 @@ public class BattleshipHomePanel extends JPanel{
 	//Properties
 	//Buffered reader for the image
 	BufferedImage imgBackground = null;
+	BufferedImage imgLogo = null;
 	
 	//Methods
 	public void paintComponent(Graphics g){
@@ -19,6 +20,9 @@ public class BattleshipHomePanel extends JPanel{
 		
 		//Adjust coordinates of the image
 		g.drawImage(imgBackground, 0, 0, null);
+		g.drawImage(imgLogo, 0, 0, null);
+		
+		
 		
 	}
 	
@@ -30,6 +34,13 @@ public class BattleshipHomePanel extends JPanel{
             imgBackground = ImageIO.read(new File("Assets/Sprites/TitleScreen.png"));
         }catch(IOException e){
             System.out.println("Error: Background Image");
+        } 
+        
+      try{
+			//Import the Logo image
+            imgLogo = ImageIO.read(new File("Assets/Sprites/battleshiplogo.png"));
+        }catch(IOException e){
+            System.out.println("Error: Logo Image");
         } 
 	}
 }
