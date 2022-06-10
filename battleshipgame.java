@@ -7,6 +7,11 @@ import java.io.*;
 public class BattleshipGame implements ActionListener{
 	//Properties
 	JFrame theFrame = new JFrame("Battleship");
+	
+	//Home Panel
+	BattleshipHomePanel homePanel = new BattleshipHomePanel();
+	
+	//Play Panel
 	BattleshipPlayPanel playPanel = new BattleshipPlayPanel();
 	
 	//Help Panel
@@ -18,6 +23,8 @@ public class BattleshipGame implements ActionListener{
 	JMenu theMenu = new JMenu("Menu");
 	JMenuItem theHelp = new JMenuItem("Help");
 	JMenuItem theQuit = new JMenuItem("Quit");
+	JMenuItem theHome = new JMenuItem("Home");
+	JMenuItem thePlay = new JMenuItem("Play");
 	
 	//Methods
 	public void actionPerformed(ActionEvent evt){
@@ -30,30 +37,43 @@ public class BattleshipGame implements ActionListener{
 			theFrame.setContentPane(helpPanel);
 			theFrame.pack();
 			helpPanel.repaint();
-			
 		}else if(evt.getSource() == theQuit){
 			System.out.println("Quit");
 			System.exit(1);
+		}else if(evt.getSource() == theHome){
+			System.out.println("Home");
+			theFrame.setContentPane(homePanel);
+			theFrame.pack();
+			homePanel.repaint();
+		}else if(evt.getSource() == thePlay){
+			System.out.println("Play");
+			theFrame.setContentPane(playPanel);
+			theFrame.pack();
+			playPanel.repaint();
 		}
 	}
 	
 	//Constructor
 	public BattleshipGame(){
 		// Panel
-		playPanel.setPreferredSize(new Dimension(1280, 720));		
+		homePanel.setPreferredSize(new Dimension(1280, 720));		
 		
 		//Add JItems
 		theFrame.setJMenuBar(theBar);
 		
 		theBar.add(theMenu);
+		theMenu.add(theHome);
+		theMenu.add(thePlay);
 		theMenu.add(theHelp);
 		theMenu.add(theQuit);
+		thePlay.addActionListener(this);
 		theHelp.addActionListener(this);
 		theQuit.addActionListener(this);
+		theHome.addActionListener(this);
 		
 		// Frame
 		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		theFrame.setContentPane(playPanel);
+		theFrame.setContentPane(homePanel);
 		theFrame.pack();
 		theFrame.setVisible(true);	
 		theFrame.setResizable(false);
@@ -61,6 +81,14 @@ public class BattleshipGame implements ActionListener{
 		//Bring in the help panel if you click help on the menu
 		helpPanel.setLayout(null);
 		helpPanel.setPreferredSize(new Dimension(1280, 720));
+		
+		//Bring in the home panel if you click home on the menu
+		homePanel.setLayout(null);
+		homePanel.setPreferredSize(new Dimension(1280, 720));
+		
+		//Bring in the play panel if you click play on the menu
+		playPanel.setLayout(null);
+		playPanel.setPreferredSize(new Dimension(1280, 720));
 		
 		theTimer.start();
 	}
