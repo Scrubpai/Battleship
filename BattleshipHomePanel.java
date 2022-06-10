@@ -14,11 +14,11 @@ public class BattleshipHomePanel extends JPanel{
 		super.paintComponent(g);
 		
 		//Background
-		g.setColor(Color.WHITE);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1280, 720);
 		
 		//Adjust coordinates of the image
-		g.drawImage(imgLogo, 0, 0, null);
+		g.drawImage(imgLogo, 280, 500, null);
 		
 	}
 	
@@ -26,7 +26,7 @@ public class BattleshipHomePanel extends JPanel{
 	public BattleshipHomePanel(){
 		super();
 		try{
-			//Import the help image
+			//Import the logo image
             imgLogo = ImageIO.read(new File("Assets/Sprites/battleshiplogo.png"));
         }catch(IOException e){
             System.out.println("Error: logo Image");
