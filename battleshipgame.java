@@ -7,18 +7,7 @@ import java.io.*;
 public class BattleshipGame implements ActionListener{
 	//Properties
 	JFrame theFrame = new JFrame("Battleship");
-	
-	//Home Panel
-	BattleshipHomePanel homePanel = new BattleshipHomePanel();
-	
-	//Play Panel
-	BattleshipPlayPanel playPanel = new BattleshipPlayPanel();
-	
-	//Help Panel
-	BattleshipHelpPanel helpPanel = new BattleshipHelpPanel();
-	
 	Timer theTimer = new Timer(1000/60, this);
-	
 	JMenuBar theBar = new JMenuBar();
 	JMenu theMenu = new JMenu("Menu");
 	JMenuItem theHelp = new JMenuItem("Help");
@@ -28,6 +17,17 @@ public class BattleshipGame implements ActionListener{
 	JButton playButton = new JButton("Play");
 	JButton helpButton = new JButton("Help");
 	JButton quitButton = new JButton("Quit");
+	SuperSocketMaster ssm;
+	
+	//Home Panel
+	BattleshipHomePanel homePanel = new BattleshipHomePanel();
+	JTextField joinIP = new JTextField();
+	
+	//Play Panel
+	BattleshipPlayPanel playPanel = new BattleshipPlayPanel();
+	
+	//Help Panel
+	BattleshipHelpPanel helpPanel = new BattleshipHelpPanel();	
 	
 	//Methods
 	public void actionPerformed(ActionEvent evt){
