@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.io.*;
 
-public class BattleshipGame implements ActionListener{
+public class BattleshipGame implements ActionListener, MouseListener, MouseMotionListener {
 	//Properties
 	Font font1 = new Font("SansSerif", Font.BOLD, 20);
 	JFrame theFrame = new JFrame("Battleship");
@@ -14,7 +14,6 @@ public class BattleshipGame implements ActionListener{
 	JMenuItem theHelp = new JMenuItem("Help");
 	JMenuItem theQuit = new JMenuItem("Quit");
 	JMenuItem theHome = new JMenuItem("Home");
-	JMenuItem thePlay = new JMenuItem("Play");
 	SuperSocketMaster ssm;
 	
 	//Home Panel
@@ -27,6 +26,9 @@ public class BattleshipGame implements ActionListener{
 	
 	//Play Panel
 	BattleshipPlayPanel playPanel = new BattleshipPlayPanel();
+	JButton rotateButton = new JButton("Rotate");
+	JButton placeButton = new JButton("Place");
+	JTextField msgField = new JTextField();
 	
 	//Help Panel
 	BattleshipHelpPanel helpPanel = new BattleshipHelpPanel();	
@@ -36,7 +38,6 @@ public class BattleshipGame implements ActionListener{
 		if(evt.getSource() == theTimer) {
 			playPanel.repaint();
 		} else if (evt.getSource() == hostButton) {
-			playPanel.blnPlayer1 = true;
 			ssm = new SuperSocketMaster(9001, this);
 			ssm.connect();
 			
@@ -72,25 +73,59 @@ public class BattleshipGame implements ActionListener{
 		}*/
 	}
 	
+	public void mouseDragged(MouseEvent evt) {
+	}
+	
+	public void mouseMoved(MouseEvent evt) {
+	}
+	
+	public void mouseClicked(MouseEvent evt) {
+	}
+	
+	public void mouseEntered(MouseEvent evt) {
+	}
+	
+	public void mouseExited(MouseEvent evt) {
+	}
+	
+	public void mousePressed(MouseEvent evt) {
+	}
+	
+	public void mouseReleased(MouseEvent evt) {
+	}
+	
 	//Constructor
-	public BattleshipGame() {
+	public BattleshipGame() {		
+		// Battleship Play Panel
+		playPanel.setLayout(null);
+		playPanel.setPreferredSize(new Dimension(1280, 720));
+		rotateButton.setFont(font1);
+		rotateButton.setBounds(1000, 360, 240, 80);
+		placeButton.setFont(font1);
+		placeButton.setBounds(1000, 460, 240, 80);
+		msgField.setFont(font1);
+		msgField.setEditable(false);
+		msgField.setBounds(1000, 600, 240, 80);
+		playPanel.add(rotateButton);
+		playPanel.add(placeButton);
+		playPanel.add(msgField);
+		
 		//Add JItems
 		theFrame.setJMenuBar(theBar);
 		theBar.add(theMenu);
 		theMenu.add(theHome);
-		theMenu.add(thePlay);
 		theMenu.add(theHelp);
 		theMenu.add(theQuit);
 		theHelp.addActionListener(this);
-		/*thePlay.addActionListener(this);
+		/*
 		theQuit.addActionListener(this);
 		theHome.addActionListener(this);*/
 		
-		//Bring in the help panel if you click help on the menu
+		// Help Panel
 		helpPanel.setLayout(null);
 		helpPanel.setPreferredSize(new Dimension(1280, 720));
 		
-		//Bring in the home panel if you click home on the menu
+		// Home Panel
 		homePanel.setLayout(null);
 		homePanel.setPreferredSize(new Dimension(1280, 720));
 		joinIP.setBounds(700, 300, 200, 50);
@@ -112,10 +147,6 @@ public class BattleshipGame implements ActionListener{
 		joinButton.addActionListener(this);
 		quitButton.addActionListener(this);
 		
-		//Bring in the play panel if you click play on the menu
-		playPanel.setLayout(null);
-		playPanel.setPreferredSize(new Dimension(1280, 720));
-		
 		// Frame
 		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		theFrame.setContentPane(homePanel);
@@ -130,7 +161,4 @@ public class BattleshipGame implements ActionListener{
 	public static void main(String[] args) {
 		new BattleshipGame();
 	}
-
-
-
 }

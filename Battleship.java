@@ -1,10 +1,10 @@
 public class Battleship {
 	// Properties
-	private int intP1Health = 17; // 5 + 4 + 3 + 3 + 2
-	private int intP2Health = 17; // 5 + 4 + 3 + 3 + 2
-	private Ship BattleShips[][] = new Ship[3][6];
-	private char chrBattleShips[][][] = new char[3][11][11]; // S for ship, . for empty
-	private char chrMiniMaps[][][] = new char[3][11][11]; // M for miss, H for hit
+	public int intP1Health = 17; // 5 + 4 + 3 + 3 + 2
+	public int intP2Health = 17; // 5 + 4 + 3 + 3 + 2
+	public Ship BattleShips[][] = new Ship[3][6];
+	public char chrBattleShips[][][] = new char[3][11][11]; // S for ship, . for empty
+	public char chrMiniMaps[][][] = new char[3][11][11]; // M for miss, H for hit
 	public int intHealths[] = new int[6];
 	public String strNames[] = new String[6];
 	public int intTurn = 1; // P1
@@ -15,7 +15,7 @@ public class Battleship {
 	public void resetBoard() {
 		for (int intPlayer=1; intPlayer<=2; intPlayer++) {
 			for (int intCount=1; intCount<=5; intCount++) {
-				BattleShips[intPlayer][intCount] = new Ship(strNames[intCount], intHealths[intCount]);
+				BattleShips[intPlayer][intCount] = null;
 			}
 			
 			for (int intRow=1; intRow<=10; intRow++) {
@@ -86,7 +86,7 @@ public class Battleship {
 		
 		for (int intCount=1; intCount<=5; intCount++) {
 			if (BattleShips[intOpponent][intCount].checkHit(intRow, intCol)) {
-				if (BattleShips[intOpponent][intCount].getHealth() == 0) {
+				if (BattleShips[intOpponent][intCount].intHealth == 0) {
 					return intCount;
 				} else {
 					return 0;

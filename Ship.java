@@ -1,9 +1,9 @@
 public class Ship {
 	// Properties
 	public String strName;
-	private int intHealth;
-	private int intPositions[][];
-	private char chrOrientation; // Or V for vertical
+	public int intHealth;
+	public int intPositions[][];
+	public char chrOrientation; // Or V for vertical
 	public boolean blnAlive = true;
 	
 	// Methods
@@ -19,10 +19,6 @@ public class Ship {
 		}
 		
 		return false;
-	}
-	
-	public int getHealth() {
-		return intHealth;
 	}
 	
 	// Constructor
