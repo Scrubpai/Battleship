@@ -5,7 +5,8 @@ import javax.swing.event.*;
 import java.io.*;
 
 public class BattleshipGame implements ActionListener, MouseListener, MouseMotionListener {
-	//Properties
+	// Properties
+	// Test
 	Font font1 = new Font("SansSerif", Font.BOLD, 20);
 	JFrame theFrame = new JFrame("Battleship");
 	Timer theTimer = new Timer(1000/60, this);
@@ -18,7 +19,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	JMenuItem theHome = new JMenuItem("Home");
 	SuperSocketMaster ssm;
 	
-	//Home Panel
+	// Home Panel
 	BattleshipHomePanel homePanel = new BattleshipHomePanel();
 	JTextField joinIP = new JTextField();
 	JButton hostButton = new JButton("Host Game");
@@ -26,17 +27,17 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	JButton helpButton = new JButton("Help");
 	JButton quitButton = new JButton("Quit");
 	
-	//Play Panel
+	// Play Panel
 	BattleshipPlayPanel playPanel = new BattleshipPlayPanel();
 	JButton rotateButton = new JButton("Rotate");
 	JButton readyButton = new JButton("Ready");
 	JTextField yourMsgField = new JTextField();
 	JTextField opponentMsgField = new JTextField();
 	
-	//Help Panel
+	// Help Panel
 	BattleshipHelpPanel helpPanel = new BattleshipHelpPanel();	
 	
-	//Methods
+	// Methods
 	public void actionPerformed(ActionEvent evt){
 		if(evt.getSource() == theTimer && playPanel.blnPlayAnimation == false) {
 			playPanel.repaint();
