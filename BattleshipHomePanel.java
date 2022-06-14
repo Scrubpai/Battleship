@@ -21,8 +21,6 @@ public class BattleshipHomePanel extends JPanel{
 		//Adjust coordinates of the image
 		g.drawImage(imgBackground, 0, 0, null);
 		g.drawImage(imgLogo, 250, 0, null);
-		
-		
 	}
 	
 	//Constructor

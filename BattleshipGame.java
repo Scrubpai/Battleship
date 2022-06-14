@@ -9,7 +9,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	Font font1 = new Font("SansSerif", Font.BOLD, 20);
 	JFrame theFrame = new JFrame("Battleship");
 	Timer theTimer = new Timer(1000/60, this);
-	Timer animTimer = new Timer(1000/9, this);
+	Timer animTimer = new Timer(1000/10, this);
 	JMenuBar theBar = new JMenuBar();
 	JMenu theMenu = new JMenu("Menu");
 	JMenuItem thePlay = new JMenuItem("Play");
@@ -38,12 +38,23 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	
 	// Methods
 	public void actionPerformed(ActionEvent evt){
-		if(evt.getSource() == theTimer && playPanel.blnPlayAnimation == false) {
+		if(evt.getSource() == theTimer && playPanel.blnPlayAnimation[1] == false && playPanel.blnPlayAnimation[2] == false && playPanel.blnPlayAnimation[3] == false) {
 			playPanel.repaint();
-		} else if (evt.getSource() == animTimer && playPanel.blnPlayAnimation == true) {
-			playPanel.intAnimCount++;
-			playPanel.repaint();
-		}	
+		} else if (evt.getSource() == animTimer) {
+			for (int intAnimation=1; intAnimation<=3; intAnimation++) {
+				if (playPanel.blnPlayAnimation[intAnimation] == true) {
+					playPanel.repaint();
+					playPanel.intAnimCount++;
+						
+					if(playPanel.intAnimCount > playPanel.intMaxAnimationSprites[intAnimation]){
+						playPanel.blnPlayAnimation[intAnimation] = false;
+						playPanel.intAnimCount = 0;
+					}
+					
+					break; // So it doesn't play 2 animations at the same time
+				}
+			}
+		}
 		else if (evt.getSource() == hostButton) {
 			ssm = new SuperSocketMaster(9001, this);
 			ssm.connect();
@@ -74,7 +85,6 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			}
 		} else if (evt.getSource() == readyButton) {
 			if (playPanel.intPlaced[1] == 0 || playPanel.intPlaced[2] == 0 || playPanel.intPlaced[3] == 0 || playPanel.intPlaced[4] == 0 || playPanel.intPlaced[5] == 0) {
-			playPanel.blnPlayAnimation = true;	
 				return;
 			}
 			
@@ -156,17 +166,27 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		int intCol = calcRow(evt.getX());
 		System.out.println(intRow + " " + intCol);
 		
-		if (intRow >= 1 && intRow <= 10 && intCol >= 1 && intCol <= 10 && playPanel.blnYourTurn == true && playPanel.blnStartGame == true) {
+		if (intRow >= 1 && intRow <= 10 && intCol >= 1 && intCol <= 10 && playPanel.blnYourTurn == true && playPanel.blnStartGame == true && playPanel.blnPlayingAnimation == false) {
 			String strLetter = playPanel.strLetters[intCol];
 			String strNumber = Integer.toString(intRow);
+			
+			playPanel.blnPlayingAnimation = true;
+			playPanel.intAnimationRow = intRow;
+			playPanel.intAnimationCol = intCol;
+			playPanel.blnPlayAnimation[1] = true;
 			
 			yourMsgField.setText(strLetter + strNumber);
 			ssm.sendText(strLetter + strNumber);
 			
-			if (playPanel.blnHit == false) {
-				playPanel.blnYourTurn = false;
+			if (playPanel.blnHit == false) { // Miss
+				playPanel.blnYourTurn = false; // Switch turn
+				
+				playPanel.blnPlayAnimation[3] = true; // Splash
+			} else {
+				playPanel.blnPlayAnimation[2] = true; // Explosion
 			}
 			
+			playPanel.blnPlayingAnimation = false;
 			System.out.println("HIT: " + playPanel.blnHit);
 			System.out.println("YOUR TURN: " + playPanel.blnYourTurn);
 		}

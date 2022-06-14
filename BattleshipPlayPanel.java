@@ -24,10 +24,12 @@ public class BattleshipPlayPanel extends JPanel{
 	boolean blnYourTurn = false; // Server goes first
 	boolean blnHit = false;
 	
-	boolean blnPlayAnimation = false;
 	int intAnimationRow = 0;
 	int intAnimationCol = 0;
 	int intAnimCount = 0;
+	boolean blnPlayingAnimation = false;
+	boolean blnPlayAnimation[] = new boolean[4]; // 1 - Bomb, 2 - Explosion, 3 - Splash
+	int intMaxAnimationSprites[] = new int[4]; // 1 - Bomb, 2 - Explosion, 3 - Splash
 	
 	// Buffering Images
 	BufferedImage imgLetters = null;
@@ -86,19 +88,13 @@ public class BattleshipPlayPanel extends JPanel{
 			}
 		}
 		
-		if (blnPlayAnimation == true) {
-				try {
-					imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipBomb"+Integer.toString(intAnimCount)+".png"));
-				} catch (IOException e) {
-					System.out.println("Error: bomb animation");
-				}
-				g.drawImage(imgSprite, 0, 0, null);
-			
-			if(intAnimCount > 9){
-				blnPlayAnimation = false;
-				intAnimCount = 0;
+		if (blnPlayAnimation[1] == true) {
+			try {
+				imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipBomb"+Integer.toString(intAnimCount)+".png"));
+			} catch (IOException e) {
+				System.out.println("Error: bomb animation");
 			}
-			intAnimationRow = intAnimationCol = 0;
+			g.drawImage(imgSprite, 0, 0, null);
 		}
 		
 		// Create Lines to split up stuff
@@ -188,6 +184,10 @@ public class BattleshipPlayPanel extends JPanel{
 		strLetters[8] = "H";
 		strLetters[9] = "I";
 		strLetters[10] = "J";
+		
+		intMaxAnimationSprites[1] = 9;
+		intMaxAnimationSprites[2] = 5;
+		intMaxAnimationSprites[3] = 7;
 		
 		// Try Catch Images
 		try{
