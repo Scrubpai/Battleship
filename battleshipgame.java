@@ -112,6 +112,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			return;
 		}
 		
+		System.out.println("here");
 		playPanel.intPositions[playPanel.intShipSelected][0] = evt.getX() - 32;
 		playPanel.intPositions[playPanel.intShipSelected][1] = evt.getY() - 32;
 	}
@@ -128,28 +129,34 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	public void mouseExited(MouseEvent evt) {
 	}
 	
+	public void startGame() {
+		
+	}
+	
 	public void mousePressed(MouseEvent evt) {
 		for (int intShip=1; intShip<=5; intShip++) {
 			if (playPanel.intPlaced[intShip] == 0) {
 				int intX = evt.getX();
 				int intY = evt.getY();
 				if (playPanel.blnHorizontal == false) {
-					int intR1 = playPanel.intDefaultPositionsV[intShip][0];
-					int intC1 = playPanel.intDefaultPositionsV[intShip][1];
-					int intR2 = playPanel.intDefaultPositionsV[intShip][2];
-					int intC2 = playPanel.intDefaultPositionsV[intShip][3];
-					playPanel.intPlaced[playPanel.intShipSelected] = 1;	
-					if (intX>=intR1 && intX<=intR2 && intY>=intC1 && intY<=intC2) {
+					int intC1 = playPanel.intDefaultPositionsV[intShip][0];
+					int intR1 = playPanel.intDefaultPositionsV[intShip][1];
+					int intC2 = playPanel.intDefaultPositionsV[intShip][2];
+					int intR2 = playPanel.intDefaultPositionsV[intShip][3];
+					if (intX>=intC1 && intX<=intC2 && intY>=intR1 && intY<=intR2) {
 						playPanel.intShipSelected = intShip;
+						playPanel.intPlaced[playPanel.intShipSelected] = 1;	
+						break;
 					}
 				} else {
-					int intR1 = playPanel.intDefaultPositionsH[intShip][0];
-					int intC1 = playPanel.intDefaultPositionsH[intShip][1];
-					int intR2 = playPanel.intDefaultPositionsH[intShip][2];
-					int intC2 = playPanel.intDefaultPositionsH[intShip][3];
-					playPanel.intPlaced[playPanel.intShipSelected] = 2;
-					if (intX>=intR1 && intX<=intR2 && intY>=intC1 && intY<=intC2) {
+					int intC1 = playPanel.intDefaultPositionsH[intShip][0];
+					int intR1 = playPanel.intDefaultPositionsH[intShip][1];
+					int intC2 = playPanel.intDefaultPositionsH[intShip][2];
+					int intR2 = playPanel.intDefaultPositionsH[intShip][3];
+					if (intX>=intC1 && intX<=intC2 && intY>=intR1 && intY<=intR2) {
 						playPanel.intShipSelected = intShip;
+						playPanel.intPlaced[playPanel.intShipSelected] = 2;
+						break;
 					}
 				}
 			}
@@ -179,9 +186,12 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		placeShip(intRow, intCol, intSize, playPanel.blnHorizontal, playPanel.intShipSelected);
 		playPanel.intPositions[playPanel.intShipSelected][0] = (intCol - 1) * 64 + 80;
 		playPanel.intPositions[playPanel.intShipSelected][1] = (intRow - 1) * 64 + 80;
-		playPanel.intShipSelected = 0;
 		
 		printYourGrid();
+		System.out.println(playPanel.intPlaced[playPanel.intShipSelected]);
+		System.out.println();
+
+		playPanel.intShipSelected = 0;
 	}
 	
 	public boolean isPossible(int intRow, int intCol, int intSize, boolean blnHorizontal) {

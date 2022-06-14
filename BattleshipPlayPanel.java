@@ -30,6 +30,8 @@ public class BattleshipPlayPanel extends JPanel{
 	BufferedImage imgPause = null;
 	BufferedImage imgShipsV[] = new BufferedImage[6];
 	BufferedImage imgShipsH[] = new BufferedImage[6];
+	BufferedImage imgShipsMiniV[] = new BufferedImage[6];
+	BufferedImage imgShipsMiniH[] = new BufferedImage[6];
 	
 	// Methods
 	public void paintComponent(Graphics g) {
@@ -48,19 +50,33 @@ public class BattleshipPlayPanel extends JPanel{
 		g.drawImage(imgMinimap, 960, 0, null);
 		
 		// Draw Ships
-		for (int intShip=1; intShip<=5; intShip++) {
-			if (intPlaced[intShip] == 0) {
-				if (blnHorizontal == false) {
-					g.drawImage(imgShipsV[intShip], intDefaultPositionsV[intShip][0], intDefaultPositionsV[intShip][1], null);
+		if (blnStartGame == false) {
+			for (int intShip=1; intShip<=5; intShip++) {
+				if (intPlaced[intShip] == 0) {
+					if (blnHorizontal == false) {
+						g.drawImage(imgShipsV[intShip], intDefaultPositionsV[intShip][0], intDefaultPositionsV[intShip][1], null);
+					} else {
+						g.drawImage(imgShipsH[intShip], intDefaultPositionsH[intShip][0], intDefaultPositionsH[intShip][1], null);
+					}
+				} else if (intPlaced[intShip] == 1) {
+					g.drawImage(imgShipsV[intShip], intPositions[intShip][0], intPositions[intShip][1], null);
 				} else {
-					g.drawImage(imgShipsH[intShip], intDefaultPositionsH[intShip][0], intDefaultPositionsH[intShip][1], null);
+					g.drawImage(imgShipsH[intShip], intPositions[intShip][0], intPositions[intShip][1], null);
 				}
-			} else if (intPlaced[intShip] == 1) {
-				g.drawImage(imgShipsV[intShip], intPositions[intShip][0], intPositions[intShip][1], null);
-			} else {
-				g.drawImage(imgShipsH[intShip], intPositions[intShip][0], intPositions[intShip][1], null);
+			}
+		} else {
+			for (int intShip=1; intShip<=5; intShip++) {
+				int intRow = (int)Math.floor(1.0 * (intPositions[intShip][1] - 80) / 64) + 1;
+				int intCol = (int)Math.floor(1.0 * (intPositions[intShip][0] - 80) / 64) + 1;
+				
+				if (intPlaced[intShip] == 1) {
+					g.drawImage(imgShipsMiniV[intShip], 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
+				} else {
+					g.drawImage(imgShipsMiniH[intShip], 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
+				}
 			}
 		}
+
 		
 		// Create Lines to split up stuff
 		g.setColor(Color.WHITE);
@@ -187,8 +203,19 @@ public class BattleshipPlayPanel extends JPanel{
 			imgShipsH[3] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileSubH.png"));
 			imgShipsH[4] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship4TileShipH.png"));
 			imgShipsH[5] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship5TileShipH.png"));
+			
+			imgShipsMiniV[1] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship2TileShipMinimap.png"));
+			imgShipsMiniV[2] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileShipMinimap.png"));
+			imgShipsMiniV[3] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileSubMinimap.png"));
+			imgShipsMiniV[4] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship4TileShipMinimap.png"));
+			imgShipsMiniV[5] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship5TileShipMinimap.png"));
+			imgShipsMiniH[1] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship2TileShipMinimapH.png"));
+			imgShipsMiniH[2] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileShipMinimapH.png"));
+			imgShipsMiniH[3] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileSubMinimapH.png"));
+			imgShipsMiniH[4] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship4TileShipMinimapH.png"));
+			imgShipsMiniH[5] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship5TileShipMinimapH.png"));
 		}catch(IOException e){
-			System.out.println("Error: imgShip1");
+			System.out.println("Error: imgShips");
 		}
 		
 	}
