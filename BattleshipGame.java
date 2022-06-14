@@ -12,7 +12,6 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	Timer animTimer = new Timer(1000/10, this);
 	JMenuBar theBar = new JMenuBar();
 	JMenu theMenu = new JMenu("Menu");
-	JMenuItem thePlay = new JMenuItem("Play");
 	JMenuItem theHelp = new JMenuItem("Help");
 	JMenuItem theQuit = new JMenuItem("Quit");
 	JMenuItem theHome = new JMenuItem("Home");
@@ -73,6 +72,16 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			
 			theFrame.setContentPane(playPanel);
 			theFrame.pack();
+		
+		} else if(evt.getSource() == helpButton){
+			System.out.println("Help");
+			theFrame.setContentPane(helpPanel);
+			theFrame.pack();
+			helpPanel.repaint();
+		} else if(evt.getSource() == quitButton){
+			System.out.println("Quit");
+			System.exit(1);
+					
 		} else if (evt.getSource() == rotateButton) {
 			playPanel.blnHorizontal = !playPanel.blnHorizontal;
 			
@@ -169,11 +178,6 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			theFrame.setContentPane(homePanel);
 			theFrame.pack();
 			homePanel.repaint();
-		} else if(evt.getSource() == thePlay){
-			System.out.println("Play");
-			theFrame.setContentPane(playPanel);
-			theFrame.pack();
-			playPanel.repaint();
 		}
 	}
 	
@@ -363,14 +367,12 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		//Add JItems
 		theFrame.setJMenuBar(theBar);
 		theBar.add(theMenu);
-		theMenu.add(thePlay);
 		theMenu.add(theHome);
 		theMenu.add(theHelp);
 		theMenu.add(theQuit);
 		theHelp.addActionListener(this);
 		theQuit.addActionListener(this);
 		theHome.addActionListener(this);
-		thePlay.addActionListener(this);
 		
 		// Help Panel
 		helpPanel.setLayout(null);
@@ -396,6 +398,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		homePanel.add(quitButton);
 		hostButton.addActionListener(this);
 		joinButton.addActionListener(this);
+		helpButton.addActionListener(this);
 		quitButton.addActionListener(this);
 		
 		// Frame
