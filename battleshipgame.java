@@ -41,6 +41,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		} else if (evt.getSource() == hostButton) {
 			ssm = new SuperSocketMaster(9001, this);
 			ssm.connect();
+			playPanel.blnYourTurn = true; // Server goes first
 			
 			theFrame.setContentPane(playPanel);
 			theFrame.pack();
@@ -75,6 +76,8 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			
 			if (opponentMsgField.getText().equals("READY")) {
 				playPanel.blnStartGame = true;
+				System.out.println(playPanel.blnStartGame);
+				System.out.println(playPanel.blnYourTurn);
 			}
 		} else if (evt.getSource() == ssm) {
 			String strText = ssm.readText();
@@ -82,6 +85,27 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 				opponentMsgField.setText("READY");
 				if (yourMsgField.getText().equals("READY")) {
 					playPanel.blnStartGame = true;
+				}
+			} else if (strText.equals("HIT")) {
+				playPanel.blnHit = true;
+				opponentMsgField.setText("HIT");
+				// Check win game?
+			} else if (strText.equals("MISS")) {
+				playPanel.blnHit = false;
+				opponentMsgField.setText("MISS");
+			} else {
+				opponentMsgField.setText(strText);
+				int intCol = strText.charAt(0) - 'A' + 1;
+				int intRow = Integer.parseInt(strText.substring(1, 2));
+				
+				if (playPanel.intYourGrid[intRow][intCol] != 0) {
+					playPanel.intYourGrid[intRow][intCol] *= 10;
+					ssm.sendText("HIT");
+					yourMsgField.setText("HIT");
+				} else {
+					ssm.sendText("MISS");
+					yourMsgField.setText("MISS");
+					playPanel.blnYourTurn = true;
 				}
 			}
 		}
@@ -121,6 +145,24 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	}
 	
 	public void mouseClicked(MouseEvent evt) {
+		int intRow = calcRow(evt.getY());
+		int intCol = calcRow(evt.getX());
+		System.out.println(intRow + " " + intCol);
+		
+		if (intRow >= 1 && intRow <= 10 && intCol >= 1 && intCol <= 10 && playPanel.blnYourTurn == true && playPanel.blnStartGame == true) {
+			String strLetter = playPanel.strLetters[intCol];
+			String strNumber = Integer.toString(intRow);
+			
+			yourMsgField.setText(strLetter + strNumber);
+			ssm.sendText(strLetter + strNumber);
+			
+			if (playPanel.blnHit == false) {
+				playPanel.blnYourTurn = false;
+			}
+			
+			System.out.println("HIT: " + playPanel.blnHit);
+			System.out.println("YOUR TURN: " + playPanel.blnYourTurn);
+		}
 	}
 	
 	public void mouseEntered(MouseEvent evt) {

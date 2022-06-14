@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 public class BattleshipPlayPanel extends JPanel{
 	// Properties
 	boolean blnHorizontal = false;
+	String strLetters[] = new String[11];
 	int intDefaultPositionsV[][] = new int[6][4];
 	int intDefaultPositionsH[][] = new int[6][4];
 	int intPositions[][] = new int[6][2]; // [0] - width, [1] - height
@@ -20,6 +21,12 @@ public class BattleshipPlayPanel extends JPanel{
 	int intShipSelected = 0;
 	int intHealth = 17;
 	boolean blnStartGame = false;
+	boolean blnYourTurn = false; // Server goes first
+	boolean blnHit = false;
+	
+	boolean blnPlayAnimation = false;
+	int intAnimationRow = 0;
+	int intAnimationCol = 0;
 	
 	// Buffering Images
 	BufferedImage imgLetters = null;
@@ -32,6 +39,7 @@ public class BattleshipPlayPanel extends JPanel{
 	BufferedImage imgShipsH[] = new BufferedImage[6];
 	BufferedImage imgShipsMiniV[] = new BufferedImage[6];
 	BufferedImage imgShipsMiniH[] = new BufferedImage[6];
+	BufferedImage imgSprite = null; // For animation
 	
 	// Methods
 	public void paintComponent(Graphics g) {
@@ -76,7 +84,19 @@ public class BattleshipPlayPanel extends JPanel{
 				}
 			}
 		}
-
+		
+		if (blnPlayAnimation == true) {
+			for (int intCount=1; intCount<=9; intCount++) {
+				try {
+					imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipBomb"+Integer.toString(intCount)+".png"));
+				} catch (IOException e) {
+					System.out.println("Error: bomb animation");
+				}
+			}
+			
+			blnPlayAnimation = false;
+			intAnimationRow = intAnimationCol = 0;
+		}
 		
 		// Create Lines to split up stuff
 		g.setColor(Color.WHITE);
@@ -154,6 +174,17 @@ public class BattleshipPlayPanel extends JPanel{
 		intDefaultPositionsH[5][1] = 500;
 		intDefaultPositionsH[5][2] = intDefaultPositionsH[5][0]+320;
 		intDefaultPositionsH[5][3] = intDefaultPositionsH[5][1]+64;
+		
+		strLetters[1] = "A";
+		strLetters[2] = "B";
+		strLetters[3] = "C";
+		strLetters[4] = "D";
+		strLetters[5] = "E";
+		strLetters[6] = "F";
+		strLetters[7] = "G";
+		strLetters[8] = "H";
+		strLetters[9] = "I";
+		strLetters[10] = "J";
 		
 		// Try Catch Images
 		try{
