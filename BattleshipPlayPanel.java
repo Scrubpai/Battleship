@@ -27,6 +27,7 @@ public class BattleshipPlayPanel extends JPanel{
 	boolean blnPlayAnimation = false;
 	int intAnimationRow = 0;
 	int intAnimationCol = 0;
+	int intAnimCount = 0;
 	
 	// Buffering Images
 	BufferedImage imgLetters = null;
@@ -86,15 +87,17 @@ public class BattleshipPlayPanel extends JPanel{
 		}
 		
 		if (blnPlayAnimation == true) {
-			for (int intCount=1; intCount<=9; intCount++) {
 				try {
-					imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipBomb"+Integer.toString(intCount)+".png"));
+					imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipBomb"+Integer.toString(intAnimCount)+".png"));
 				} catch (IOException e) {
 					System.out.println("Error: bomb animation");
 				}
-			}
+				g.drawImage(imgSprite, 0, 0, null);
 			
-			blnPlayAnimation = false;
+			if(intAnimCount > 9){
+				blnPlayAnimation = false;
+				intAnimCount = 0;
+			}
 			intAnimationRow = intAnimationCol = 0;
 		}
 		

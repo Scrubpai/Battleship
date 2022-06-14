@@ -9,6 +9,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	Font font1 = new Font("SansSerif", Font.BOLD, 20);
 	JFrame theFrame = new JFrame("Battleship");
 	Timer theTimer = new Timer(1000/60, this);
+	Timer animTimer = new Timer(1000/9, this);
 	JMenuBar theBar = new JMenuBar();
 	JMenu theMenu = new JMenu("Menu");
 	JMenuItem thePlay = new JMenuItem("Play");
@@ -37,9 +38,13 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	
 	//Methods
 	public void actionPerformed(ActionEvent evt){
-		if(evt.getSource() == theTimer) {
+		if(evt.getSource() == theTimer && playPanel.blnPlayAnimation == false) {
 			playPanel.repaint();
-		} else if (evt.getSource() == hostButton) {
+		} else if (evt.getSource() == animTimer && playPanel.blnPlayAnimation == true) {
+			playPanel.intAnimCount++;
+			playPanel.repaint();
+		}	
+		else if (evt.getSource() == hostButton) {
 			ssm = new SuperSocketMaster(9001, this);
 			ssm.connect();
 			playPanel.blnYourTurn = true; // Server goes first
@@ -69,6 +74,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			}
 		} else if (evt.getSource() == readyButton) {
 			if (playPanel.intPlaced[1] == 0 || playPanel.intPlaced[2] == 0 || playPanel.intPlaced[3] == 0 || playPanel.intPlaced[4] == 0 || playPanel.intPlaced[5] == 0) {
+			playPanel.blnPlayAnimation = true;	
 				return;
 			}
 			
@@ -363,6 +369,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		theFrame.setResizable(false);
 		
 		theTimer.start();
+		animTimer.start();
 	}
 
 	//Main Method
