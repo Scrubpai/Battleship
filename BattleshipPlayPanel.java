@@ -43,6 +43,10 @@ public class BattleshipPlayPanel extends JPanel{
 	BufferedImage imgShipsMiniV[] = new BufferedImage[6];
 	BufferedImage imgShipsMiniH[] = new BufferedImage[6];
 	BufferedImage imgSprite = null; // For animation
+	BufferedImage imgMinimapHit = null;
+	BufferedImage imgMinimapMiss = null;
+	BufferedImage imgBattleshipHit = null;
+	BufferedImage imgBattleshipMiss = null;
 	
 	// Methods
 	public void paintComponent(Graphics g) {
@@ -86,6 +90,24 @@ public class BattleshipPlayPanel extends JPanel{
 					g.drawImage(imgShipsMiniH[intShip], 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
 				}
 			}
+			
+			for (int intRow=1; intRow<=10; intRow++) {
+				for (int intCol=1; intCol<=10; intCol++) {
+					// Radar (Your Ships)
+					if (intYourGrid[intRow][intCol] >= 10) {
+						g.drawImage(imgMinimapHit, 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
+					} else if (intYourGrid[intRow][intCol] == 1) {
+						g.drawImage(imgMinimapMiss, 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
+					}
+					
+					// Map (Guessing Your Opponent's Ships)
+					if (intOpponentGrid[intRow][intCol] == 1) {
+						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+					} else if (intOpponentGrid[intRow][intCol] == 2) {
+						g.drawImage(imgBattleshipMiss, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+					}
+				}
+			}
 		}
 		
 		if (blnPlayAnimation[1] == true) {
@@ -94,21 +116,21 @@ public class BattleshipPlayPanel extends JPanel{
 			} catch (IOException e) {
 				System.out.println("Error: bomb animation");
 			}
-			g.drawImage(imgSprite, intAnimationRow, intAnimationCol, null);
+			g.drawImage(imgSprite, (intAnimationCol - 1) * 64 + 80, (intAnimationRow - 1) * 64 + 80, null);
 		} else if (blnPlayAnimation[2] == true) {
 			try {
 				imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipHitExplosion"+Integer.toString(intAnimCount)+".png"));
 			} catch (IOException e) {
 				System.out.println("Error: bomb animation");
 			}
-			g.drawImage(imgSprite, intAnimationRow, intAnimationCol, null);
+			g.drawImage(imgSprite, (intAnimationCol - 1) * 64 + 80, (intAnimationRow - 1) * 64 + 80, null);
 		} else if (blnPlayAnimation[3] == true) {
 			try {
 				imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipSplash"+Integer.toString(intAnimCount)+".png"));
 			} catch (IOException e) {
 				System.out.println("Error: bomb animation");
 			}
-			g.drawImage(imgSprite, intAnimationRow, intAnimationCol, null);
+			g.drawImage(imgSprite, (intAnimationCol - 1) * 64 + 80, (intAnimationRow - 1) * 64 + 80, null);
 		}
 		
 		// Create Lines to split up stuff
@@ -262,6 +284,11 @@ public class BattleshipPlayPanel extends JPanel{
 			imgShipsMiniH[3] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileSubMinimapH.png"));
 			imgShipsMiniH[4] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship4TileShipMinimapH.png"));
 			imgShipsMiniH[5] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship5TileShipMinimapH.png"));
+			
+			imgMinimapHit = ImageIO.read(new File("Assets/Sprites/BattleshipMinimapHit.png"));
+			imgMinimapMiss = ImageIO.read(new File("Assets/Sprites/BattleshipMinimapMiss.png"));
+			imgBattleshipHit = ImageIO.read(new File("Assets/Sprites/BattleshipHit.png"));
+			imgBattleshipMiss = ImageIO.read(new File("Assets/Sprites/BattleshipMiss.png"));
 		}catch(IOException e){
 			System.out.println("Error: imgShips");
 		}

@@ -112,23 +112,43 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 				playPanel.blnYourTurn = true;
 				playPanel.blnPlayAnimation[2] = true; // Explosion
 				opponentMsgField.setText("HIT");
-
+				String strLocation = yourMsgField.getText();
+				int intCol = strLocation.charAt(0) - 'A' + 1;
+				int intRow = Integer.parseInt(strLocation.substring(1, 2));
+				if (strLocation.length() == 3) {
+					intRow *= 10;
+				}
+				
+				playPanel.intOpponentGrid[intRow][intCol] = 1; // 1 = Hit
 				// Check win game?
 			} else if (strText.equals("MISS")) {
 				playPanel.blnHit = false;
 				playPanel.blnYourTurn = false;
 				playPanel.blnPlayAnimation[3] = true; // Splash
 				opponentMsgField.setText("MISS");
+				
+				String strLocation = yourMsgField.getText();
+				int intCol = strLocation.charAt(0) - 'A' + 1;
+				int intRow = Integer.parseInt(strLocation.substring(1, 2));
+				if (strLocation.length() == 3) {
+					intRow *= 10;
+				}
+				
+				playPanel.intOpponentGrid[intRow][intCol] = 2; // 2 = Miss
 			} else {
 				opponentMsgField.setText(strText);
 				int intCol = strText.charAt(0) - 'A' + 1;
 				int intRow = Integer.parseInt(strText.substring(1, 2));
+				if (strText.length() == 3) {
+					intRow *= 10;
+				}
 				
-				if (playPanel.intYourGrid[intRow][intCol] != 0) {
+				if (playPanel.intYourGrid[intRow][intCol] >= 1 && playPanel.intYourGrid[intRow][intCol] <= 5) {
 					playPanel.intYourGrid[intRow][intCol] *= 10;
 					ssm.sendText("HIT");
 					yourMsgField.setText("HIT");
 				} else {
+					playPanel.intYourGrid[intRow][intCol] = 1; // 1 Means Miss
 					ssm.sendText("MISS");
 					yourMsgField.setText("MISS");
 					playPanel.blnYourTurn = true;
@@ -186,9 +206,6 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			
 			yourMsgField.setText(strLetter + strNumber);
 			ssm.sendText(strLetter + strNumber);
-			
-			System.out.println("HIT: " + playPanel.blnHit);
-			System.out.println("YOUR TURN: " + playPanel.blnYourTurn);
 		}
 	}
 	
