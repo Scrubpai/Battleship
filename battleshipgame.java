@@ -4,9 +4,8 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.io.*;
 
-public class BattleshipGame implements ActionListener, MouseListener, MouseMotionListener {
+public class ChessGame implements ActionListener, MouseListener, MouseMotionListener {
 	// Properties
-	// Test
 	Font font1 = new Font("SansSerif", Font.BOLD, 20);
 	JFrame theFrame = new JFrame("Battleship");
 	Timer theTimer = new Timer(1000/60, this);
