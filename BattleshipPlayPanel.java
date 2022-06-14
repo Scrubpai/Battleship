@@ -94,7 +94,21 @@ public class BattleshipPlayPanel extends JPanel{
 			} catch (IOException e) {
 				System.out.println("Error: bomb animation");
 			}
-			g.drawImage(imgSprite, 0, 0, null);
+			g.drawImage(imgSprite, intAnimationRow, intAnimationCol, null);
+		} else if (blnPlayAnimation[2] == true) {
+			try {
+				imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipHitExplosion"+Integer.toString(intAnimCount)+".png"));
+			} catch (IOException e) {
+				System.out.println("Error: bomb animation");
+			}
+			g.drawImage(imgSprite, intAnimationRow, intAnimationCol, null);
+		} else if (blnPlayAnimation[3] == true) {
+			try {
+				imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipSplash"+Integer.toString(intAnimCount)+".png"));
+			} catch (IOException e) {
+				System.out.println("Error: bomb animation");
+			}
+			g.drawImage(imgSprite, intAnimationRow, intAnimationCol, null);
 		}
 		
 		// Create Lines to split up stuff

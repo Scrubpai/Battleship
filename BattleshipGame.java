@@ -38,7 +38,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	
 	// Methods
 	public void actionPerformed(ActionEvent evt){
-		if(evt.getSource() == theTimer && playPanel.blnPlayAnimation[1] == false && playPanel.blnPlayAnimation[2] == false && playPanel.blnPlayAnimation[3] == false) {
+		if(evt.getSource() == theTimer && playPanel.blnPlayingAnimation == false) {
 			playPanel.repaint();
 		} else if (evt.getSource() == animTimer) {
 			for (int intAnimation=1; intAnimation<=3; intAnimation++) {
@@ -53,6 +53,10 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 					
 					break; // So it doesn't play 2 animations at the same time
 				}
+			}
+			
+			if (playPanel.blnPlayAnimation[1] == false && playPanel.blnPlayAnimation[2] == false && playPanel.blnPlayAnimation[3] == false) {
+				playPanel.blnPlayingAnimation = false;
 			}
 		}
 		else if (evt.getSource() == hostButton) {
@@ -186,7 +190,6 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 				playPanel.blnPlayAnimation[2] = true; // Explosion
 			}
 			
-			playPanel.blnPlayingAnimation = false;
 			System.out.println("HIT: " + playPanel.blnHit);
 			System.out.println("YOUR TURN: " + playPanel.blnYourTurn);
 		}
