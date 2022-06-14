@@ -27,8 +27,9 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	//Play Panel
 	BattleshipPlayPanel playPanel = new BattleshipPlayPanel();
 	JButton rotateButton = new JButton("Rotate");
-	JButton placeButton = new JButton("Place");
-	JTextField msgField = new JTextField();
+	JButton readyButton = new JButton("Ready");
+	JTextField yourMsgField = new JTextField();
+	JTextField opponentMsgField = new JTextField();
 	
 	//Help Panel
 	BattleshipHelpPanel helpPanel = new BattleshipHelpPanel();	
@@ -50,6 +51,39 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			
 			theFrame.setContentPane(playPanel);
 			theFrame.pack();
+		} else if (evt.getSource() == rotateButton) {
+			playPanel.blnHorizontal = !playPanel.blnHorizontal;
+			
+			for (int intShip=1; intShip<=5; intShip++) {
+				if (playPanel.intPlaced[intShip] == 0) {
+					if (playPanel.blnHorizontal == false) {
+						playPanel.intPositions[intShip][0] = playPanel.intDefaultPositionsV[intShip][0];
+						playPanel.intPositions[intShip][1] = playPanel.intDefaultPositionsV[intShip][1];					
+					} else {
+						playPanel.intPositions[intShip][0] = playPanel.intDefaultPositionsH[intShip][0];
+						playPanel.intPositions[intShip][1] = playPanel.intDefaultPositionsH[intShip][1];	
+					}
+				}
+			}
+		} else if (evt.getSource() == readyButton) {
+			if (playPanel.intPlaced[1] == 0 || playPanel.intPlaced[2] == 0 || playPanel.intPlaced[3] == 0 || playPanel.intPlaced[4] == 0 || playPanel.intPlaced[5] == 0) {
+				return;
+			}
+			
+			ssm.sendText("READY");
+			yourMsgField.setText("READY");
+			
+			if (opponentMsgField.getText().equals("READY")) {
+				playPanel.blnStartGame = true;
+			}
+		} else if (evt.getSource() == ssm) {
+			String strText = ssm.readText();
+			if (strText.equals("READY")) {
+				opponentMsgField.setText("READY");
+				if (yourMsgField.getText().equals("READY")) {
+					playPanel.blnStartGame = true;
+				}
+			}
 		}
 		
 		if (evt.getSource() == theHelp) {
@@ -74,6 +108,12 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	}
 	
 	public void mouseDragged(MouseEvent evt) {
+		if (playPanel.intShipSelected == 0) {
+			return;
+		}
+		
+		playPanel.intPositions[playPanel.intShipSelected][0] = evt.getX() - 32;
+		playPanel.intPositions[playPanel.intShipSelected][1] = evt.getY() - 32;
 	}
 	
 	public void mouseMoved(MouseEvent evt) {
@@ -89,9 +129,115 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	}
 	
 	public void mousePressed(MouseEvent evt) {
+		for (int intShip=1; intShip<=5; intShip++) {
+			if (playPanel.intPlaced[intShip] == 0) {
+				int intX = evt.getX();
+				int intY = evt.getY();
+				if (playPanel.blnHorizontal == false) {
+					int intR1 = playPanel.intDefaultPositionsV[intShip][0];
+					int intC1 = playPanel.intDefaultPositionsV[intShip][1];
+					int intR2 = playPanel.intDefaultPositionsV[intShip][2];
+					int intC2 = playPanel.intDefaultPositionsV[intShip][3];
+					playPanel.intPlaced[playPanel.intShipSelected] = 1;	
+					if (intX>=intR1 && intX<=intR2 && intY>=intC1 && intY<=intC2) {
+						playPanel.intShipSelected = intShip;
+					}
+				} else {
+					int intR1 = playPanel.intDefaultPositionsH[intShip][0];
+					int intC1 = playPanel.intDefaultPositionsH[intShip][1];
+					int intR2 = playPanel.intDefaultPositionsH[intShip][2];
+					int intC2 = playPanel.intDefaultPositionsH[intShip][3];
+					playPanel.intPlaced[playPanel.intShipSelected] = 2;
+					if (intX>=intR1 && intX<=intR2 && intY>=intC1 && intY<=intC2) {
+						playPanel.intShipSelected = intShip;
+					}
+				}
+			}
+		}
 	}
 	
 	public void mouseReleased(MouseEvent evt) {
+		int intRow = calcRow(evt.getY());
+		int intCol = calcCol(evt.getX());
+		int intSize = playPanel.intSizes[playPanel.intShipSelected];
+		
+		System.out.println(intRow + " " + intCol + " " + intSize);
+		
+		if (intRow < 1 || intRow > 10 || intCol < 1 || intCol > 10 || (playPanel.blnHorizontal == false && intRow + intSize - 1 > 10) || (playPanel.blnHorizontal == true && intCol + intSize - 1 > 10) || !isPossible(intRow, intCol, intSize, playPanel.blnHorizontal)) {
+			// Out of bounds
+			playPanel.intPlaced[playPanel.intShipSelected] = 0;
+			if (playPanel.blnHorizontal == false) {
+				playPanel.intPositions[playPanel.intShipSelected][0] = playPanel.intDefaultPositionsV[playPanel.intShipSelected][0];
+				playPanel.intPositions[playPanel.intShipSelected][1] = playPanel.intDefaultPositionsV[playPanel.intShipSelected][1];					
+			} else {
+				playPanel.intPositions[playPanel.intShipSelected][0] = playPanel.intDefaultPositionsH[playPanel.intShipSelected][0];
+				playPanel.intPositions[playPanel.intShipSelected][1] = playPanel.intDefaultPositionsH[playPanel.intShipSelected][1];	
+			}
+			return;
+		}
+		
+		placeShip(intRow, intCol, intSize, playPanel.blnHorizontal, playPanel.intShipSelected);
+		playPanel.intPositions[playPanel.intShipSelected][0] = (intCol - 1) * 64 + 80;
+		playPanel.intPositions[playPanel.intShipSelected][1] = (intRow - 1) * 64 + 80;
+		playPanel.intShipSelected = 0;
+		
+		printYourGrid();
+	}
+	
+	public boolean isPossible(int intRow, int intCol, int intSize, boolean blnHorizontal) {
+		if (blnHorizontal == false) {
+			for (int intCount=0; intCount<intSize; intCount++) {
+				if (playPanel.intYourGrid[intRow+intCount][intCol] != 0) {
+					System.out.println(playPanel.intYourGrid[intRow+intCount][intCol]);
+					return false;
+				}
+			}
+		} else {
+			for (int intCount=0; intCount<intSize; intCount++) {
+				if (playPanel.intYourGrid[intRow][intCol+intCount] != 0) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	public void placeShip(int intRow, int intCol, int intSize, boolean blnHorizontal, int intShip) {
+		if (blnHorizontal == false) {
+			for (int intCount=0; intCount<intSize; intCount++) {
+				playPanel.intYourGrid[intRow+intCount][intCol] = intShip;
+			}
+		} else {
+			for (int intCount=0; intCount<intSize; intCount++) {
+				playPanel.intYourGrid[intRow][intCol+intCount] = intShip;
+			}
+		}
+	}
+	
+	public int calcRow(int intY) {
+		return (int)Math.floor(1.0 * (intY - 80) / 64) + 1;
+	}
+	
+	public int calcCol(int intX) {
+		return (int)Math.floor(1.0 * (intX - 80) / 64) + 1;
+	}
+	
+	public void printYourGrid() {
+		for (int intRow=1; intRow<=10; intRow++) {
+			for (int intCol=1; intCol<=10; intCol++) {
+				System.out.print(playPanel.intYourGrid[intRow][intCol] + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public void printOpponentGrid() {
+		for (int intRow=1; intRow<=10; intRow++) {
+			for (int intCol=1; intCol<=10; intCol++) {
+				System.out.print(playPanel.intOpponentGrid[intRow][intCol] + " ");
+			}
+			System.out.println();
+		}
 	}
 	
 	//Constructor
@@ -99,16 +245,24 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		// Battleship Play Panel
 		playPanel.setLayout(null);
 		playPanel.setPreferredSize(new Dimension(1280, 720));
+		playPanel.addMouseMotionListener(this);
+		playPanel.addMouseListener(this);
 		rotateButton.setFont(font1);
 		rotateButton.setBounds(1000, 360, 240, 80);
-		placeButton.setFont(font1);
-		placeButton.setBounds(1000, 460, 240, 80);
-		msgField.setFont(font1);
-		msgField.setEditable(false);
-		msgField.setBounds(1000, 600, 240, 80);
+		rotateButton.addActionListener(this);
+		readyButton.setFont(font1);
+		readyButton.setBounds(1000, 460, 240, 80);
+		readyButton.addActionListener(this);
+		yourMsgField.setFont(font1);
+		yourMsgField.setEditable(false);
+		yourMsgField.setBounds(1000, 560, 240, 60);
+		opponentMsgField.setFont(font1);
+		opponentMsgField.setEditable(false);
+		opponentMsgField.setBounds(1000, 640, 240, 60);
 		playPanel.add(rotateButton);
-		playPanel.add(placeButton);
-		playPanel.add(msgField);
+		playPanel.add(readyButton);
+		playPanel.add(yourMsgField);
+		playPanel.add(opponentMsgField);
 		
 		//Add JItems
 		theFrame.setJMenuBar(theBar);
