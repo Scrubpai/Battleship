@@ -11,6 +11,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	Timer theTimer = new Timer(1000/60, this);
 	JMenuBar theBar = new JMenuBar();
 	JMenu theMenu = new JMenu("Menu");
+	JMenuItem thePlay = new JMenuItem("Play");
 	JMenuItem theHelp = new JMenuItem("Help");
 	JMenuItem theQuit = new JMenuItem("Quit");
 	JMenuItem theHome = new JMenuItem("Home");
@@ -115,7 +116,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			theFrame.setContentPane(helpPanel);
 			theFrame.pack();
 			helpPanel.repaint();
-		} /*else if(evt.getSource() == theQuit){
+		} else if(evt.getSource() == theQuit){
 			System.out.println("Quit");
 			System.exit(1);
 		}else if(evt.getSource() == theHome){
@@ -128,7 +129,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			theFrame.setContentPane(playPanel);
 			theFrame.pack();
 			playPanel.repaint();
-		}*/
+		}
 	}
 	
 	public void mouseDragged(MouseEvent evt) {
@@ -319,13 +320,14 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		//Add JItems
 		theFrame.setJMenuBar(theBar);
 		theBar.add(theMenu);
+		theMenu.add(thePlay);
 		theMenu.add(theHome);
 		theMenu.add(theHelp);
 		theMenu.add(theQuit);
 		theHelp.addActionListener(this);
-		/*
 		theQuit.addActionListener(this);
-		theHome.addActionListener(this);*/
+		theHome.addActionListener(this);
+		thePlay.addActionListener(this);
 		
 		// Help Panel
 		helpPanel.setLayout(null);
