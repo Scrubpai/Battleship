@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.io.*;
 
-public class ChessGame implements ActionListener, MouseListener, MouseMotionListener {
+public class BattleshipGame implements ActionListener, MouseListener, MouseMotionListener {
 	// Properties
 	Font font1 = new Font("SansSerif", Font.BOLD, 20);
 	JFrame theFrame = new JFrame("Battleship");
