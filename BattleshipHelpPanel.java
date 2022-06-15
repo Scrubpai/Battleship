@@ -5,7 +5,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 
-public class BattleshipHelpPanel extends JPanel{
+public class BattleshipHelpPanel extends BattleshipPlayPanel{
 	//Properties
 	//Buffered reader for the image
 	BufferedImage imgHelp = null;
