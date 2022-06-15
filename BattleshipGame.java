@@ -157,7 +157,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 					ssm.sendText("HIT");
 					yourMsgField.setText("HIT");
 				} else {
-					playPanel.intYourGrid[intRow][intCol] = 1; // 1 Means Miss
+					playPanel.intYourGrid[intRow][intCol] = -1; // -1 Means Miss
 					ssm.sendText("MISS");
 					yourMsgField.setText("MISS");
 					playPanel.blnYourTurn = true;
@@ -200,6 +200,9 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		System.out.println(intRow + " " + intCol);
 		
 		if (intRow >= 1 && intRow <= 10 && intCol >= 1 && intCol <= 10 && playPanel.blnYourTurn == true && playPanel.blnStartGame == true && playPanel.blnPlayingAnimation == false) {
+			if (playPanel.intOpponentGrid[intRow][intCol] != 0) {
+				return;
+			}
 			String strLetter = playPanel.strLetters[intCol];
 			String strNumber = Integer.toString(intRow);
 			

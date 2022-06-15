@@ -96,7 +96,7 @@ public class BattleshipPlayPanel extends JPanel{
 					// Radar (Your Ships)
 					if (intYourGrid[intRow][intCol] >= 10) {
 						g.drawImage(imgMinimapHit, 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
-					} else if (intYourGrid[intRow][intCol] == 1) {
+					} else if (intYourGrid[intRow][intCol] == -1) {
 						g.drawImage(imgMinimapMiss, 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
 					}
 					
