@@ -6,42 +6,46 @@ import java.awt.image.BufferedImage;
 
 
 public class BattleshipHelpPanel extends JPanel{
-	//Properties
-	//Buffered reader for the image
-	BufferedImage imgLogo = null;	
-	BufferedImage imgHelp = null;
-	
-	//Methods
+	// Properties
+	Font font1 = new Font("SansSerif", Font.BOLD, 20);
+	Font font2 = new Font("SansSerif", Font.BOLD, 50);
+	BufferedImage imgShips[] = new BufferedImage[6];
+		
+	// Methods
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
-		//Background
-		g.setColor(Color.WHITE);
+		// Background
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1280, 720);
 		
-		//Add Text
-		g.setFont(new Font("Arial.ttf", Font.PLAIN, 30));
-		g.setColor(Color.BLACK);
-		g.drawString("Step 1: Drag and Drop Ships", 900, 160);
+		g.setFont(font2);
+		g.setColor(Color.WHITE);
+		g.drawString("Objective", 530, 80);
 		
-		//Need to add drag and drop interactivity
-		
-		//Adjust coordinates of the image
-		g.drawImage(imgLogo, 0, -50, null);
-		g.drawImage(imgHelp, 0, 230, null);
+		g.setFont(font1);
+		g.drawString("You have 5 ships. Your opponent has 5 ships.", 420, 150);
+		g.drawImage(imgShips[1], 300, 220, null);
+		g.drawImage(imgShips[2], 450, 220, null);
+		g.drawImage(imgShips[3], 600, 220, null);
+		g.drawImage(imgShips[4], 750, 220, null);
+		g.drawImage(imgShips[5], 900, 220, null);
+		g.drawString("Goal: guess where your opponent's ships are located and sink them all", 300, 600);
 		
 	}
-	//Constructor
-	public BattleshipHelpPanel(){
+	// Constructor
+	public BattleshipHelpPanel() {
         super();
-		try{
-			//Import the image
-			imgLogo = ImageIO.read(new File("Assets/Sprites/battleshiplogo.png"));
-			imgHelp = ImageIO.read(new File("Assets/Sprites/help.png"));
-        }catch(IOException e){
-            System.out.println("Error: Printing Image");
-        } 
         
+        try {
+			imgShips[1] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship2TileShip.png"));
+			imgShips[2] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileShip.png"));
+			imgShips[3] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileSub.png"));
+			imgShips[4] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship4TileShip.png"));
+			imgShips[5] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship5TileShip.png"));
+		} catch (IOException e) {
+			System.out.println("Error: IMAGE");
+		}
     }
 	
 }

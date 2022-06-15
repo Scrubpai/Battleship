@@ -277,55 +277,15 @@ public class BattleshipPlayPanel extends JPanel{
 		intMaxAnimationSprites[3] = 7;
 		
 		// Try Catch Images
-		try{
-			imgPause = ImageIO.read(new File("Assets/Sprites/BattleshipPause.png"));
-		}catch(IOException e){
-			System.out.println("Error: imgPause");
-		}
-		
-		try{
-			imgWin = ImageIO.read(new File("Assets/Sprites/Win.png"));
-		}catch(IOException e){
-			System.out.println("Error: imgWin");
-		}
-		
-		try{
-			imgLose = ImageIO.read(new File("Assets/Sprites/Lose.png"));
-		}catch(IOException e){
-			System.out.println("Error: imgLose");
-		}
-		
-		try{
-			imgLetters = ImageIO.read(new File("Assets/Sprites/Battleship Theme/BattleshipLetters.png"));
-		}catch(IOException e){
-			System.out.println("Error: imgLetters");
-		}
-		
-		try{
-			imgNumbers = ImageIO.read(new File("Assets/Sprites/Battleship Theme/BattleshipNumbers.png"));
-		}catch(IOException e){
-			System.out.println("Error: imgNumbers");
-		}		
-		
-		try{
-			imgWater = ImageIO.read(new File("Assets/Sprites/BattleshipWater.png"));
-		}catch(IOException e){
-			System.out.println("Error: imgWater");
-		}	
-		
-		try{
-			imgBox = ImageIO.read(new File("Assets/Sprites/BattleshipBox.png"));
-		}catch(IOException e){
-			System.out.println("Error: imgBox");
-		}		
-		
-		try{
-			imgMinimap = ImageIO.read(new File("Assets/Sprites/BattleshipMinimap.png"));
-		}catch(IOException e){
-			System.out.println("Error: imgMinimap");
-		}
-		
 		try {
+			imgPause = ImageIO.read(new File("Assets/Sprites/BattleshipPause.png"));
+			imgWin = ImageIO.read(new File("Assets/Sprites/Win.png"));
+			imgLose = ImageIO.read(new File("Assets/Sprites/Lose.png"));
+			imgLetters = ImageIO.read(new File("Assets/Sprites/Battleship Theme/BattleshipLetters.png"));
+			imgNumbers = ImageIO.read(new File("Assets/Sprites/Battleship Theme/BattleshipNumbers.png"));
+			imgWater = ImageIO.read(new File("Assets/Sprites/BattleshipWater.png"));
+			imgBox = ImageIO.read(new File("Assets/Sprites/BattleshipBox.png"));
+			imgMinimap = ImageIO.read(new File("Assets/Sprites/BattleshipMinimap.png"));
 			imgShipsV[1] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship2TileShip.png"));
 			imgShipsV[2] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileShip.png"));
 			imgShipsV[3] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileSub.png"));
