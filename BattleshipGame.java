@@ -24,6 +24,8 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	JButton joinButton = new JButton("Join Game");
 	JButton helpButton = new JButton("Help");
 	JButton quitButton = new JButton("Quit");
+	JButton themesButton = new JButton("Themes");
+
 	
 	// Play Panel
 	BattleshipPlayPanel playPanel = new BattleshipPlayPanel();
@@ -37,6 +39,12 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	BattleshipHelpPanel2 helpPanel2 = new BattleshipHelpPanel2();
 	JButton nextButton1 = new JButton("Next");
 	JTextField step1 = new JTextField("Demo Step 1: Drag and Drop your ships onto your map");
+	
+	//Themes Panel
+	BattleshipThemesPanel themesPanel = new BattleshipThemesPanel();
+	JTextField themesField = new JTextField();
+	JButton  homeButton = new JButton("Back Home");
+	
 	
 	// Methods
 	public void actionPerformed(ActionEvent evt){
@@ -225,6 +233,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		}
 		
 		
+		
 		if (evt.getSource() == theHelp) {
 			theFrame.setContentPane(helpPanel);
 			theFrame.pack();
@@ -232,6 +241,14 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		} else if(evt.getSource() == theQuit){
 			System.exit(1);
 		}else if(evt.getSource() == theHome){
+			theFrame.setContentPane(homePanel);
+			theFrame.pack();
+			homePanel.repaint();
+		}else if(evt.getSource() == themesButton){
+			theFrame.setContentPane(themesPanel);
+			theFrame.pack();
+			themesPanel.repaint();
+		}else if(evt.getSource() == homeButton){
 			theFrame.setContentPane(homePanel);
 			theFrame.pack();
 			homePanel.repaint();
@@ -529,15 +546,28 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		helpButton.setFont(font1);
 		quitButton.setBounds(540, 600, 200, 80);
 		quitButton.setFont(font1);
+		themesButton.setBounds(1000, 600, 200, 80);
+		themesButton.setFont(font1);
 		homePanel.add(joinIP);
 		homePanel.add(joinButton);
 		homePanel.add(hostButton);
 		homePanel.add(helpButton);
 		homePanel.add(quitButton);
+		homePanel.add(themesButton);
 		hostButton.addActionListener(this);
 		joinButton.addActionListener(this);
 		helpButton.addActionListener(this);
 		quitButton.addActionListener(this);
+		themesButton.addActionListener(this);
+		
+		
+		//Themes Panel
+		themesPanel.setLayout(null);
+		themesPanel.setPreferredSize(new Dimension(1280, 720));
+		themesPanel.add(homeButton);
+		homeButton.setBounds(1000, 600, 200, 80);
+		homeButton.setFont(font1);
+		homeButton.addActionListener(this);
 		
 		// Frame
 		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
