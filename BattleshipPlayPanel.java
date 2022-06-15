@@ -31,6 +31,10 @@ public class BattleshipPlayPanel extends JPanel{
 	boolean blnPlayAnimation[] = new boolean[4]; // 1 - Bomb, 2 - Explosion, 3 - Splash
 	int intMaxAnimationSprites[] = new int[4]; // 1 - Bomb, 2 - Explosion, 3 - Splash
 	
+	int intShipHits[] = new int[6];
+	int intShipsSunk = 0;
+	int intWinLose = 0; // 1 - win 2 - lose.
+	
 	// Buffering Images
 	BufferedImage imgLetters = null;
 	BufferedImage imgNumbers = null;
@@ -38,10 +42,14 @@ public class BattleshipPlayPanel extends JPanel{
 	BufferedImage imgBox = null;
 	BufferedImage imgMinimap = null;
 	BufferedImage imgPause = null;
+	BufferedImage imgWin = null;
+	BufferedImage imgLose = null;
 	BufferedImage imgShipsV[] = new BufferedImage[6];
 	BufferedImage imgShipsH[] = new BufferedImage[6];
 	BufferedImage imgShipsMiniV[] = new BufferedImage[6];
 	BufferedImage imgShipsMiniH[] = new BufferedImage[6];
+	BufferedImage imgShipsSunkV[] = new BufferedImage[6];
+	BufferedImage imgShipsSunkH[] = new BufferedImage[6];
 	BufferedImage imgSprite = null; // For animation
 	BufferedImage imgMinimapHit = null;
 	BufferedImage imgMinimapMiss = null;
@@ -103,6 +111,7 @@ public class BattleshipPlayPanel extends JPanel{
 					// Map (Guessing Your Opponent's Ships)
 					if (intOpponentGrid[intRow][intCol] == 1) {
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+						
 					} else if (intOpponentGrid[intRow][intCol] == 2) {
 						g.drawImage(imgBattleshipMiss, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 					}
@@ -122,6 +131,12 @@ public class BattleshipPlayPanel extends JPanel{
 				imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipHitExplosion"+Integer.toString(intAnimCount)+".png"));
 			} catch (IOException e) {
 				System.out.println("Error: bomb animation");
+			}
+				// Draw Win/Lose
+			if(intWinLose == 1) {
+				g.drawImage(imgWin, 0,0, null);
+			} else if(intWinLose == 2) {
+				g.drawImage(imgLose, 0,0, null);
 			}
 			g.drawImage(imgSprite, (intAnimationCol - 1) * 64 + 80, (intAnimationRow - 1) * 64 + 80, null);
 		} else if (blnPlayAnimation[3] == true) {
@@ -148,6 +163,16 @@ public class BattleshipPlayPanel extends JPanel{
 		
 		g.setColor(Color.WHITE);
 		g.fillRect(960, 320, 320, 1);
+		
+		// Draw Win/Lose
+		if(intWinLose == 1)
+		{
+			g.drawImage(imgWin, 0,0, null);
+		}
+		else if(intWinLose == 2)
+		{
+			g.drawImage(imgLose, 0,0, null);
+		}
 	}
 	
 	
@@ -233,6 +258,18 @@ public class BattleshipPlayPanel extends JPanel{
 		}
 		
 		try{
+			imgWin = ImageIO.read(new File("Assets/Sprites/Win.png"));
+		}catch(IOException e){
+			System.out.println("Error: imgWin");
+		}
+		
+		try{
+			imgLose = ImageIO.read(new File("Assets/Sprites/Lose.png"));
+		}catch(IOException e){
+			System.out.println("Error: imgLose");
+		}
+		
+		try{
 			imgLetters = ImageIO.read(new File("Assets/Sprites/Battleship Theme/BattleshipLetters.png"));
 		}catch(IOException e){
 			System.out.println("Error: imgLetters");
@@ -273,6 +310,17 @@ public class BattleshipPlayPanel extends JPanel{
 			imgShipsH[3] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileSubH.png"));
 			imgShipsH[4] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship4TileShipH.png"));
 			imgShipsH[5] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship5TileShipH.png"));
+			
+			imgShipsSunkV[1] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship2TileShipSunk.png"));
+			imgShipsSunkV[2] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileShipSunk.png"));
+			imgShipsSunkV[3] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileSubSunk.png"));
+			imgShipsSunkV[4] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship4TileShipSunk.png"));
+			imgShipsSunkV[5] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship5TileShipSunk.png"));
+			imgShipsSunkH[1] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship2TileShipSunkH.png"));
+			imgShipsSunkH[2] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileShipSunkH.png"));
+			imgShipsSunkH[3] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileSubSunkH.png"));
+			imgShipsSunkH[4] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship4TileShipSunkH.png"));
+			imgShipsSunkH[5] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship5TileShipSunkH.png"));
 			
 			imgShipsMiniV[1] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship2TileShipMinimap.png"));
 			imgShipsMiniV[2] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileShipMinimap.png"));

@@ -153,9 +153,31 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 				}
 				
 				if (playPanel.intYourGrid[intRow][intCol] >= 1 && playPanel.intYourGrid[intRow][intCol] <= 5) {
+					for(int i = 1; i <= 6; i++)	{
+						if(playPanel.intYourGrid[intRow][intCol] == i)	{
+							playPanel.intShipHits[i]++;
+							System.out.println(playPanel.intShipHits[i]);
+							if(playPanel.intSizes[i] == playPanel.intShipHits[i])	{
+								playPanel.intShipsSunk++;
+								System.out.println("Sunk " + i);
+								System.out.println(playPanel.intShipsSunk);
+							}
+						}
+					}
 					playPanel.intYourGrid[intRow][intCol] *= 10;
+					if(playPanel.intShipsSunk >= 5)	{
+						ssm.sendText("You Win");
+						yourMsgField.setText("You Lose");
+						if(yourMsgField.getText().equals("You Win")) {
+							playPanel.intWinLose = 1;
+						} else if (yourMsgField.getText().equals("You Lose")) {
+							playPanel.intWinLose = 2;
+						}
+						System.out.println(playPanel.intWinLose + "!");
+					} else {
 					ssm.sendText("HIT");
 					yourMsgField.setText("HIT");
+					}
 				} else {
 					playPanel.intYourGrid[intRow][intCol] = -1; // 1 Means Miss
 					ssm.sendText("MISS");
