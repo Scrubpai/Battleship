@@ -157,15 +157,27 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 				
 				playPanel.intOpponentGrid[intRow][intCol] = 2; // 2 = Miss
 			} else if (strText.length() >= 4 && strText.substring(0, 4).equals("Sunk")) {
+				playPanel.blnHit = true;
+				playPanel.blnYourTurn = true;
+				playPanel.blnPlayAnimation[2] = true; // Explosion
+				opponentMsgField.setText("HIT");
+				String strLocation = yourMsgField.getText();
+				int intCol = strLocation.charAt(0) - 'A' + 1;
+				int intRow = Integer.parseInt(strLocation.substring(1, 2));
+				if (strLocation.length() == 3) {
+					intRow *= 10;
+				}
+				playPanel.intOpponentGrid[intRow][intCol] = 1; // 1 = Hit
+				
 				String strSub = strText.substring(5);
 				String strArray[] = strSub.split(" ");
 				int intShip = Integer.parseInt(strArray[0]);
-				int intRow = Integer.parseInt(strArray[1]);
-				int intCol = Integer.parseInt(strArray[2]);
+				int intSunkRow = Integer.parseInt(strArray[1]);
+				int intSunkCol = Integer.parseInt(strArray[2]);
 				int intOrientation = Integer.parseInt(strArray[3]); // 1 - Vertical, 2 - Horizontal
-				System.out.println(strSub + " " + intShip + " " + intRow + " " + intCol + " " + intOrientation);
+				System.out.println(strSub + " " + intShip + " " + intSunkRow + " " + intSunkCol + " " + intOrientation);
 				
-				playPanel.intOpponentGrid[intRow][intCol] = intShip * 10 + intOrientation;
+				playPanel.intOpponentGrid[intSunkRow][intSunkCol] = intShip * 10 + intOrientation;
 			} else if (strText.equals("You Win")) {
 				playPanel.intWinLose = 1;
 			} else {
