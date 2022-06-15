@@ -144,6 +144,8 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 				}
 				
 				playPanel.intOpponentGrid[intRow][intCol] = 2; // 2 = Miss
+			} else if (strText.equals("You Win")) {
+				playPanel.intWinLose = 1;
 			} else {
 				opponentMsgField.setText(strText);
 				int intCol = strText.charAt(0) - 'A' + 1;
@@ -166,8 +168,10 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 					}
 					playPanel.intYourGrid[intRow][intCol] *= 10;
 					if(playPanel.intShipsSunk >= 5)	{
+						System.out.println("Hi");
 						ssm.sendText("You Win");
 						yourMsgField.setText("You Lose");
+						//opponentMsgField.setText("You Win");
 						if(yourMsgField.getText().equals("You Win")) {
 							playPanel.intWinLose = 1;
 						} else if (yourMsgField.getText().equals("You Lose")) {

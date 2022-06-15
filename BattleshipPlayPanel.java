@@ -34,6 +34,7 @@ public class BattleshipPlayPanel extends JPanel{
 	int intShipHits[] = new int[6];
 	int intShipsSunk = 0;
 	int intWinLose = 0; // 1 - win 2 - lose.
+	int intWinLoseSer = 0; // 1 - win 2 - lose.
 	
 	// Buffering Images
 	BufferedImage imgLetters = null;
