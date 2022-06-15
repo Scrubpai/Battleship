@@ -17,7 +17,7 @@ public class BattleshipPlayPanel extends JPanel{
 	int intSizes[] = new int[6];
 	int intPlaced[] = new int[6]; // 0 - Not Placed, 1 - Vertical, 2 - Horizontal
 	int intYourGrid[][] = new int[11][11];
-	int intOpponentGrid[][] = new int[11][11];
+	int intOpponentGrid[][] = new int[11][11]; // 1 - Hit, 2 - Miss
 	int intShipSelected = 0;
 	int intHealth = 17;
 	boolean blnStartGame = false;
@@ -34,7 +34,7 @@ public class BattleshipPlayPanel extends JPanel{
 	int intShipHits[] = new int[6];
 	int intShipsSunk = 0;
 	int intWinLose = 0; // 1 - win 2 - lose.
-	int intWinLoseSer = 0; // 1 - win 2 - lose.
+	boolean blnGameOver = false;
 	
 	// Buffering Images
 	BufferedImage imgLetters = null;
@@ -95,7 +95,7 @@ public class BattleshipPlayPanel extends JPanel{
 				
 				if (intPlaced[intShip] == 1) {
 					g.drawImage(imgShipsMiniV[intShip], 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
-				} else {
+				} else if (intPlaced[intShip] == 2) {
 					g.drawImage(imgShipsMiniH[intShip], 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
 				}
 			}
@@ -110,9 +110,38 @@ public class BattleshipPlayPanel extends JPanel{
 					}
 					
 					// Map (Guessing Your Opponent's Ships)
-					if (intOpponentGrid[intRow][intCol] == 1) {
+					if (intOpponentGrid[intRow][intCol] == 11) { // Sunk Ship 1 (V)
+						g.drawImage(imgShipsSunkV[1], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-						
+					} else if (intOpponentGrid[intRow][intCol] == 12) { // Sunk Ship 1 (H)
+						g.drawImage(imgShipsSunkH[1], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+					} else if (intOpponentGrid[intRow][intCol] == 21) { // Sunk Ship 2 (V)
+						g.drawImage(imgShipsSunkV[2], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+					} else if (intOpponentGrid[intRow][intCol] == 22) { // Sunk Ship 2 (H)
+						g.drawImage(imgShipsSunkH[2], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+					} else if (intOpponentGrid[intRow][intCol] == 31) { // Sunk Ship 3 (V)
+						g.drawImage(imgShipsSunkV[3], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+					} else if (intOpponentGrid[intRow][intCol] == 32) { // Sunk Ship 3 (H)
+						g.drawImage(imgShipsSunkH[3], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+					} else if (intOpponentGrid[intRow][intCol] == 41) { // Sunk Ship 4 (V) 
+						g.drawImage(imgShipsSunkV[4], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+					} else if (intOpponentGrid[intRow][intCol] == 42) { // Sunk Ship 4 (H)
+						g.drawImage(imgShipsSunkH[4], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+					} else if (intOpponentGrid[intRow][intCol] == 51) { // Sunk Ship 5 (V)
+						g.drawImage(imgShipsSunkV[5], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+					} else if (intOpponentGrid[intRow][intCol] == 52) { // Sunk Ship 5 (H)
+						g.drawImage(imgShipsSunkH[5], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
+					} else if (intOpponentGrid[intRow][intCol] == 1) {
+						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 					} else if (intOpponentGrid[intRow][intCol] == 2) {
 						g.drawImage(imgBattleshipMiss, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 					}
@@ -168,11 +197,13 @@ public class BattleshipPlayPanel extends JPanel{
 		// Draw Win/Lose
 		if(intWinLose == 1)
 		{
-			g.drawImage(imgWin, 0,0, null);
+			g.drawImage(imgWin, 0, 150, null);
+			blnGameOver = true;
 		}
 		else if(intWinLose == 2)
 		{
-			g.drawImage(imgLose, 0,0, null);
+			g.drawImage(imgLose, 0, 150, null);
+			blnGameOver = true;
 		}
 	}
 	

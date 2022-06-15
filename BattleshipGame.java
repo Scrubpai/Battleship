@@ -123,6 +123,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			}
 		} else if (evt.getSource() == ssm) {
 			String strText = ssm.readText();
+			System.out.println("THEMSG: " + strText);
 			if (strText.equals("READY")) {
 				opponentMsgField.setText("READY");
 				if (yourMsgField.getText().equals("READY")) {
@@ -141,7 +142,6 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 				}
 				
 				playPanel.intOpponentGrid[intRow][intCol] = 1; // 1 = Hit
-				// Check win game?
 			} else if (strText.equals("MISS")) {
 				playPanel.blnHit = false;
 				playPanel.blnYourTurn = false;
@@ -156,6 +156,16 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 				}
 				
 				playPanel.intOpponentGrid[intRow][intCol] = 2; // 2 = Miss
+			} else if (strText.length() >= 4 && strText.substring(0, 4).equals("Sunk")) {
+				String strSub = strText.substring(5);
+				String strArray[] = strSub.split(" ");
+				int intShip = Integer.parseInt(strArray[0]);
+				int intRow = Integer.parseInt(strArray[1]);
+				int intCol = Integer.parseInt(strArray[2]);
+				int intOrientation = Integer.parseInt(strArray[3]); // 1 - Vertical, 2 - Horizontal
+				System.out.println(strSub + " " + intShip + " " + intRow + " " + intCol + " " + intOrientation);
+				
+				playPanel.intOpponentGrid[intRow][intCol] = intShip * 10 + intOrientation;
 			} else if (strText.equals("You Win")) {
 				playPanel.intWinLose = 1;
 			} else {
@@ -167,32 +177,31 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 				}
 				
 				if (playPanel.intYourGrid[intRow][intCol] >= 1 && playPanel.intYourGrid[intRow][intCol] <= 5) {
-					for(int i = 1; i <= 6; i++)	{
-						if(playPanel.intYourGrid[intRow][intCol] == i)	{
-							playPanel.intShipHits[i]++;
-							System.out.println(playPanel.intShipHits[i]);
-							if(playPanel.intSizes[i] == playPanel.intShipHits[i])	{
-								playPanel.intShipsSunk++;
-								System.out.println("Sunk " + i);
-								System.out.println(playPanel.intShipsSunk);
-							}
-						}
-					}
+					int intShip = playPanel.intYourGrid[intRow][intCol];
 					playPanel.intYourGrid[intRow][intCol] *= 10;
-					if(playPanel.intShipsSunk >= 5)	{
-						System.out.println("Hi");
-						ssm.sendText("You Win");
-						yourMsgField.setText("You Lose");
-						//opponentMsgField.setText("You Win");
-						if(yourMsgField.getText().equals("You Win")) {
-							playPanel.intWinLose = 1;
-						} else if (yourMsgField.getText().equals("You Lose")) {
-							playPanel.intWinLose = 2;
+					playPanel.intShipHits[intShip]++; 
+					if(playPanel.intSizes[intShip] == playPanel.intShipHits[intShip]) {
+						playPanel.intShipsSunk++;
+						int intSunkRow = (int)Math.floor(1.0 * (playPanel.intPositions[intShip][1] - 80) / 64) + 1;
+						int intSunkCol = (int)Math.floor(1.0 * (playPanel.intPositions[intShip][0] - 80) / 64) + 1;
+						System.out.println("Sunk "+ intShip + " " + intSunkRow + " " + intSunkCol + " " + playPanel.intPlaced[intShip]);
+						ssm.sendText("Sunk "+ intShip + " " + intSunkRow + " " + intSunkCol + " " + playPanel.intPlaced[intShip]);
+						yourMsgField.setText("HIT");
+						
+						if(playPanel.intShipsSunk >= 5)	{
+							ssm.sendText("You Win");
+							yourMsgField.setText("You Lose");
+							opponentMsgField.setText("You Win");
+							if(yourMsgField.getText().equals("You Win")) {
+								playPanel.intWinLose = 1;
+							} else if (yourMsgField.getText().equals("You Lose")) {
+								playPanel.intWinLose = 2;
+							}
 						}
 						System.out.println(playPanel.intWinLose + "!");
 					} else {
-					ssm.sendText("HIT");
-					yourMsgField.setText("HIT");
+						ssm.sendText("HIT");
+						yourMsgField.setText("HIT");
 					}
 				} else {
 					playPanel.intYourGrid[intRow][intCol] = -1; // 1 Means Miss
@@ -273,6 +282,12 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			
 			yourMsgField.setText(strLetter + strNumber);
 			ssm.sendText(strLetter + strNumber);
+		}
+		
+		if (playPanel.blnStartGame == true && playPanel.blnPlayingAnimation == false && playPanel.blnGameOver == true) {
+			if (evt.getX() > 830 && evt.getX() < 980 && evt.getY() > 177 && evt.getY() < 317) {
+				System.exit(1);
+			}
 		}
 	}
 	
