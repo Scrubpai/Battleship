@@ -24,6 +24,8 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	JButton joinButton = new JButton("Join Game");
 	JButton helpButton = new JButton("Help");
 	JButton quitButton = new JButton("Quit");
+	JButton themesButton = new JButton("Themes");
+	JTextField themesField = new JTextField();
 	
 	// Play Panel
 	BattleshipPlayPanel playPanel = new BattleshipPlayPanel();
@@ -37,14 +39,15 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	BattleshipHelpPanel2 help2Panel = new BattleshipHelpPanel2();
 	BattleshipHelpPanel3 help3Panel = new BattleshipHelpPanel3();
 	BattleshipHelpPanel4 help4Panel = new BattleshipHelpPanel4();
-	BattleshipHelpPanel5 help5Panel = new BattleshipHelpPanel5();
-	
-	
+	BattleshipHelpPanel5 help5Panel = new BattleshipHelpPanel5();	
 	JButton help2Button = new JButton("Page 2");
 	JButton help3Button = new JButton("Page 3");
 	JButton help4Button = new JButton("Page 4");
 	JButton help5Button = new JButton("Page 5");
 	JButton help6Button = new JButton("Back To Home");
+	
+	//Themes Panel
+	BattleshipThemesPanel themesPanel = new BattleshipThemesPanel();
 	
 	
 	// Methods
@@ -225,6 +228,11 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			theFrame.setContentPane(homePanel);
 			theFrame.pack();
 			homePanel.repaint();
+		}else if(evt.getSource() == themesButton){
+			System.out.println("Themes");
+			theFrame.setContentPane(themesPanel);
+			theFrame.pack();
+			themesPanel.repaint();
 		}
 		
 		if(evt.getSource() == help2Button){
@@ -501,6 +509,9 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		helpButton.setFont(font1);
 		quitButton.setBounds(540, 600, 200, 80);
 		quitButton.setFont(font1);
+		themesButton.setBounds(1000, 600, 200, 80);
+		themesButton.setFont(font1);
+		homePanel.add(themesButton);
 		homePanel.add(joinIP);
 		homePanel.add(joinButton);
 		homePanel.add(hostButton);
@@ -510,6 +521,12 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		joinButton.addActionListener(this);
 		helpButton.addActionListener(this);
 		quitButton.addActionListener(this);
+		themesButton.addActionListener(this);
+		
+		//Themes Panel
+		themesPanel.setLayout(null);
+		themesPanel.setPreferredSize(new Dimension(1280, 720));
+		themesPanel.add(help6Button);
 		
 		// Frame
 		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
