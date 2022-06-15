@@ -68,6 +68,11 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			
 			if (playPanel.blnPlayAnimation[1] == false && playPanel.blnPlayAnimation[2] == false && playPanel.blnPlayAnimation[3] == false) {
 				playPanel.blnPlayingAnimation = false;
+				
+				if (playPanel.intSunkValue != 0) {
+					playPanel.intOpponentGrid[playPanel.intSunkRow][playPanel.intSunkCol] = playPanel.intSunkValue;
+					playPanel.intSunkRow = playPanel.intSunkCol = playPanel.intSunkValue = 0;
+				}
 			}
 		}
 		else if (evt.getSource() == hostButton) {
@@ -177,9 +182,14 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 				int intOrientation = Integer.parseInt(strArray[3]); // 1 - Vertical, 2 - Horizontal
 				System.out.println(strSub + " " + intShip + " " + intSunkRow + " " + intSunkCol + " " + intOrientation);
 				
-				playPanel.intOpponentGrid[intSunkRow][intSunkCol] = intShip * 10 + intOrientation;
+				playPanel.intSunkRow = intSunkRow;
+				playPanel.intSunkCol = intSunkCol;
+				playPanel.intSunkValue = intShip * 10 + intOrientation;
+				//playPanel.intOpponentGrid[intSunkRow][intSunkCol] = intShip * 10 + intOrientation;
 			} else if (strText.equals("You Win")) {
 				playPanel.intWinLose = 1;
+				yourMsgField.setText("You win");
+				opponentMsgField.setText("You lose");
 			} else {
 				opponentMsgField.setText(strText);
 				int intCol = strText.charAt(0) - 'A' + 1;
@@ -204,13 +214,8 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 							ssm.sendText("You Win");
 							yourMsgField.setText("You Lose");
 							opponentMsgField.setText("You Win");
-							if(yourMsgField.getText().equals("You Win")) {
-								playPanel.intWinLose = 1;
-							} else if (yourMsgField.getText().equals("You Lose")) {
-								playPanel.intWinLose = 2;
-							}
+							playPanel.intWinLose = 2;
 						}
-						System.out.println(playPanel.intWinLose + "!");
 					} else {
 						ssm.sendText("HIT");
 						yourMsgField.setText("HIT");

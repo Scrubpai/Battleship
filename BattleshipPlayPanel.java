@@ -36,6 +36,10 @@ public class BattleshipPlayPanel extends JPanel{
 	int intWinLose = 0; // 1 - win 2 - lose.
 	boolean blnGameOver = false;
 	
+	int intSunkRow = 0;
+	int intSunkCol = 0;
+	int intSunkValue = 0;
+	
 	// Buffering Images
 	BufferedImage imgLetters = null;
 	BufferedImage imgNumbers = null;
@@ -162,12 +166,6 @@ public class BattleshipPlayPanel extends JPanel{
 			} catch (IOException e) {
 				System.out.println("Error: bomb animation");
 			}
-				// Draw Win/Lose
-			if(intWinLose == 1) {
-				g.drawImage(imgWin, 0,0, null);
-			} else if(intWinLose == 2) {
-				g.drawImage(imgLose, 0,0, null);
-			}
 			g.drawImage(imgSprite, (intAnimationCol - 1) * 64 + 80, (intAnimationRow - 1) * 64 + 80, null);
 		} else if (blnPlayAnimation[3] == true) {
 			try {
@@ -185,7 +183,7 @@ public class BattleshipPlayPanel extends JPanel{
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 80, 720, 1);
 		
-		g.setColor(Color.WHITE);
+		g.setColor(Color.WHITE);  
 		g.fillRect(720, 0, 1, 720);
 		
 		g.setColor(Color.WHITE);
@@ -195,18 +193,14 @@ public class BattleshipPlayPanel extends JPanel{
 		g.fillRect(960, 320, 320, 1);
 		
 		// Draw Win/Lose
-		if(intWinLose == 1)
-		{
+		if(intWinLose == 1 && blnPlayingAnimation == false) {
 			g.drawImage(imgWin, 0, 150, null);
 			blnGameOver = true;
-		}
-		else if(intWinLose == 2)
-		{
+		} else if(intWinLose == 2 && blnPlayingAnimation == false) {
 			g.drawImage(imgLose, 0, 150, null);
 			blnGameOver = true;
 		}
 	}
-	
 	
 	// Constructor
 	public BattleshipPlayPanel(){
