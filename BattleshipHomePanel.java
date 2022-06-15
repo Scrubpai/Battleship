@@ -23,6 +23,7 @@ public class BattleshipHomePanel extends JPanel{
 		g.drawImage(imgLogo, 250, 0, null);
 	}
 	
+	
 	//Constructor
 	public BattleshipHomePanel(){
 		super();

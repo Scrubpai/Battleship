@@ -34,6 +34,18 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	
 	// Help Panel
 	BattleshipHelpPanel helpPanel = new BattleshipHelpPanel();	
+	BattleshipHelpPanel2 help2Panel = new BattleshipHelpPanel2();
+	BattleshipHelpPanel3 help3Panel = new BattleshipHelpPanel3();
+	BattleshipHelpPanel4 help4Panel = new BattleshipHelpPanel4();
+	BattleshipHelpPanel5 help5Panel = new BattleshipHelpPanel5();
+	
+	
+	JButton help2Button = new JButton("Page 2");
+	JButton help3Button = new JButton("Page 3");
+	JButton help4Button = new JButton("Page 4");
+	JButton help5Button = new JButton("Page 5");
+	JButton help6Button = new JButton("Back To Home");
+	
 	
 	// Methods
 	public void actionPerformed(ActionEvent evt){
@@ -201,6 +213,28 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			System.exit(1);
 		}else if(evt.getSource() == theHome){
 			System.out.println("Home");
+			theFrame.setContentPane(homePanel);
+			theFrame.pack();
+			homePanel.repaint();
+		}
+		
+		if(evt.getSource() == help2Button){
+			theFrame.setContentPane(help2Panel);
+			theFrame.pack();
+			help2Panel.repaint();
+		}else if(evt.getSource() == help3Button){
+			theFrame.setContentPane(help3Panel);
+			theFrame.pack();
+			help3Panel.repaint();
+		}else if(evt.getSource() == help4Button){
+			theFrame.setContentPane(help4Panel);
+			theFrame.pack();
+			help4Panel.repaint();
+		}else if(evt.getSource() == help5Button){
+			theFrame.setContentPane(help5Panel);
+			theFrame.pack();
+			help5Panel.repaint();
+		}else if(evt.getSource() == help6Button){
 			theFrame.setContentPane(homePanel);
 			theFrame.pack();
 			homePanel.repaint();
@@ -406,6 +440,38 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		// Help Panel
 		helpPanel.setLayout(null);
 		helpPanel.setPreferredSize(new Dimension(1280, 720));
+		help2Button.setBounds(1000, 600, 200, 80);
+		help2Button.setFont(font1);
+		helpPanel.add(help2Button);
+		help2Button.addActionListener(this);
+		
+		help2Panel.setLayout(null);
+		help2Panel.setPreferredSize(new Dimension(1280, 720));
+		help3Button.setBounds(1000, 600, 200, 80);
+		help3Button.setFont(font1);
+		help2Panel.add(help3Button);
+		help3Button.addActionListener(this);
+		
+		help3Panel.setLayout(null);
+		help3Panel.setPreferredSize(new Dimension(1280, 720));
+		help4Button.setBounds(1000, 600, 200, 80);
+		help4Button.setFont(font1);
+		help3Panel.add(help4Button);
+		help4Button.addActionListener(this);
+		
+		help4Panel.setLayout(null);
+		help4Panel.setPreferredSize(new Dimension(1280, 720));
+		help5Button.setBounds(1000, 600, 200, 80);
+		help5Button.setFont(font1);
+		help4Panel.add(help5Button);
+		help5Button.addActionListener(this);
+		
+		help5Panel.setLayout(null);
+		help5Panel.setPreferredSize(new Dimension(1280, 720));
+		help6Button.setBounds(1000, 600, 200, 80);
+		help6Button.setFont(font1);
+		help5Panel.add(help6Button);
+		help6Button.addActionListener(this);
 		
 		// Home Panel
 		homePanel.setLayout(null);
