@@ -18,44 +18,44 @@ public class BattleshipPlayPanel extends JPanel{
 	/**
 	 * Stores the letters which correspond to each column on the grid. strLetters[1] = A, strLetters[2] = B, ... 
 	 */
-	String strLetters[] = new String[11];
+	public String strLetters[] = new String[11];
 	
 	/**
 	 * Stores the default click area for each battleship when they are vertical and haven't been placed on the map yet
 	 * For ex, top left coordinate is (intDefaultPositionsV[][0], inintDefaultPositionsV[][1]), bottom right coordinate is (intDefaultPositionsV[][2], intDefaultPositionsV[][3])
 	 */
-	int intDefaultPositionsV[][] = new int[6][4];
+	public int intDefaultPositionsV[][] = new int[6][4];
 	
 	/**
 	 * Stores the default click area for each battleship when they are horizontal and haven't been placed on the map yet
 	 * For ex, top left coordinate is (intDefaultPositionsV[][0], inintDefaultPositionsV[][1]), bottom right coordinate is (intDefaultPositionsV[][2], intDefaultPositionsV[][3])
 	 */
-	int intDefaultPositionsH[][] = new int[6][4];
+	public int intDefaultPositionsH[][] = new int[6][4];
 	
 	/**
 	 * Stores the location that each of YOUR battleships should be drawn to the screen
 	 * The coordinate of the battleship is (intPositions[][0], intPositions[][1])
 	 */
-	int intPositions[][] = new int[6][2];
+	public int intPositions[][] = new int[6][2];
 	
 	/**
 	 * Stores the size of each ship
 	 * For ex, the size of ship 1 is intSizes[1]
 	 */
-	int intSizes[] = new int[6];
+	public int intSizes[] = new int[6];
 	
 	/**
 	 * Determines the status of the ship (whether it has been placed for not)
 	 * 0 - Not Placed, 1 - Placed Vertically, 2 - Placed Horizontally
 	 */
-	int intPlaced[] = new int[6];
+	public int intPlaced[] = new int[6];
 	
 	/**
 	 * Stores the grid representing your map of battleships (the minimap)
 	 * -1 represents that your opponent has missed
 	 * 10, 20, 30, 40, 50 represents that your ships 1, 2, 3, 4, 5 has been hit, respectively
 	 */
-	int intYourGrid[][] = new int[11][11];
+	public int intYourGrid[][] = new int[11][11];
 	
 	/**
 	 * Stores the grid representing your guesses of your opponent's ships
@@ -72,52 +72,52 @@ public class BattleshipPlayPanel extends JPanel{
 	 * 1 - A ship has been hit (may not be sunk yet)
 	 * 2 - Your guess is a miss
 	 */
-	int intOpponentGrid[][] = new int[11][11];
+	public int intOpponentGrid[][] = new int[11][11];
 	
 	/**
 	 * Represents the ship you have selected when you are dragging and dropping the ships onto the map
 	 */
-	int intShipSelected = 0;
+	public int intShipSelected = 0;
 	
 	/**
 	 * Your HP. If this reaches 0, it means all your ships have been sunk
 	 */
-	int intHealth = 17;
+	public int intHealth = 17;
 	
 	/**
 	 * True if the game has started (both players have pressed ready). False if the game has not started.
 	 */
-	boolean blnStartGame = false;
+	public boolean blnStartGame = false;
 	
 	/**
 	 * True if it is your turn to fire. False if it is not your turn
 	 */
-	boolean blnYourTurn = false;
+	public boolean blnYourTurn = false;
 	
 	/**
 	 * True if you have hit your opponent's ship. False if you missed
 	 */
-	boolean blnHit = false;
+	public boolean blnHit = false;
 	
 	/**
 	 * The row which the bomb/explosion/splash animation should be played
 	 */
-	int intAnimationRow = 0;
+	public int intAnimationRow = 0;
 	
 	/**
 	 * The column which the bomb/explosion/splash animation should be played
 	 */
-	int intAnimationCol = 0;
+	public int intAnimationCol = 0;
 	
 	/**
 	 * The sprite which the animation is currently displaying
 	 */
-	int intAnimCount = 0;
+	public int intAnimCount = 0;
 	
 	/**
 	 * True if an animation is currently playing. False if an animation is not currently playing
 	 */
-	boolean blnPlayingAnimation = false;
+	public boolean blnPlayingAnimation = false;
 	
 	/**
 	 * blnPlayAnimation[1] represents the bomb animation
@@ -126,7 +126,7 @@ public class BattleshipPlayPanel extends JPanel{
 	 * 
 	 * blnPlayAnimation[i] = true means that the i-th animation is currently playing
 	 */
-	boolean blnPlayAnimation[] = new boolean[4];
+	public boolean blnPlayAnimation[] = new boolean[4];
 	
 	/**
 	 * Represents the maximum number of sprites/frames that each animation has
@@ -134,42 +134,42 @@ public class BattleshipPlayPanel extends JPanel{
 	 * intMaxAnimationSprites[2] reprents the explosion animation
 	 * intMaxAnimationSprites[3] reprents the splash animation
 	 */
-	int intMaxAnimationSprites[] = new int[4];
+	public int intMaxAnimationSprites[] = new int[4];
 	
 	/**
 	 * Represents the number of times each ship has been hit
 	 */
-	int intShipHits[] = new int[6];
+	public int intShipHits[] = new int[6];
 	
 	/**
 	 * Represents the number of YOUR ships that have been sunk
 	 */
-	int intShipsSunk = 0;
+	public int intShipsSunk = 0;
 	
 	/**
 	 * 1 means that you have won, 2 means that you lost
 	 */
-	int intWinLose = 0;
+	public int intWinLose = 0;
 	
 	/**
 	 * True if the game is over
 	 */
-	boolean blnGameOver = false;
+	public boolean blnGameOver = false;
 	
 	/**
 	 * The row that the currently sunk ship is located at
 	 */
-	int intSunkRow = 0;
+	public int intSunkRow = 0;
 	
 	/**
 	 * The column that the currently sunk ship is located at
 	 */
-	int intSunkCol = 0;
+	public int intSunkCol = 0;
 	
 	/**
 	 * Used to update the value of intOpponentGrid[][]
 	 */
-	int intSunkValue = 0;
+	public int intSunkValue = 0;
 	
 	/**
 	 * The current theme that is selected
@@ -178,12 +178,12 @@ public class BattleshipPlayPanel extends JPanel{
 	 * 2 - Lego
 	 * 3 - User Created Theme
 	 */
-	int intTheme = 0;
+	public int intTheme = 0;
 	
 	/**
 	 * The total number of themes currently available
 	 */
-	int intThemetotal = 4;
+	public int intThemetotal = 4;
 	
 	// Buffering Images
 	/**
@@ -303,26 +303,26 @@ public class BattleshipPlayPanel extends JPanel{
 		// Draw Ships
 		if (blnStartGame == false) {
 			for (int intShip=1; intShip<=5; intShip++) {
-				if (intPlaced[intShip] == 0) {
+				if (intPlaced[intShip] == 0) { // Ship has not been placed on the map yet, draw it on the wooden box/board
 					if (blnHorizontal == false) {
 						g.drawImage(imgShipsV[intShip][intTheme], intDefaultPositionsV[intShip][0], intDefaultPositionsV[intShip][1], null);
 					} else {
 						g.drawImage(imgShipsH[intShip][intTheme], intDefaultPositionsH[intShip][0], intDefaultPositionsH[intShip][1], null);
 					}
-				} else if (intPlaced[intShip] == 1) {
+				} else if (intPlaced[intShip] == 1) { // Ship has been placed vertically
 					g.drawImage(imgShipsV[intShip][intTheme], intPositions[intShip][0], intPositions[intShip][1], null);
-				} else {
+				} else { // Ship has been placed horizontally
 					g.drawImage(imgShipsH[intShip][intTheme], intPositions[intShip][0], intPositions[intShip][1], null);
 				}
 			}
-		} else {
+		} else { // Game has started
 			for (int intShip=1; intShip<=5; intShip++) {
 				int intRow = (int)Math.floor(1.0 * (intPositions[intShip][1] - 80) / 64) + 1;
 				int intCol = (int)Math.floor(1.0 * (intPositions[intShip][0] - 80) / 64) + 1;
 				
-				if (intPlaced[intShip] == 1) {
+				if (intPlaced[intShip] == 1) { // Draw vertical ship on minimap (your ships)
 					g.drawImage(imgShipsMiniV[intShip][intTheme], 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
-				} else if (intPlaced[intShip] == 2) {
+				} else if (intPlaced[intShip] == 2) { // Draw horizontal ship on minimap (your ships)
 					g.drawImage(imgShipsMiniH[intShip][intTheme], 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
 				}
 			}
@@ -330,67 +330,68 @@ public class BattleshipPlayPanel extends JPanel{
 			for (int intRow=1; intRow<=10; intRow++) {
 				for (int intCol=1; intCol<=10; intCol++) {
 					// Radar (Your Ships)
-					if (intYourGrid[intRow][intCol] >= 10) {
+					if (intYourGrid[intRow][intCol] >= 10) { // Opponent has hit a ship which occupies this location
 						g.drawImage(imgMinimapHit, 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
-					} else if (intYourGrid[intRow][intCol] == -1) {
+					} else if (intYourGrid[intRow][intCol] == -1) { // Opponent has guessed this location and missed
 						g.drawImage(imgMinimapMiss, 960 + (intCol - 1) * 28 + 34, (intRow - 1) * 28 + 34, null);
 					}
 					
 					// Map (Guessing Your Opponent's Ships)
-					if (intOpponentGrid[intRow][intCol] == 11) { // Sunk Ship 1 (V)
+					if (intOpponentGrid[intRow][intCol] == 11) { // Sunk Opponent Ship 1 (V)
 						g.drawImage(imgShipsSunkV[1][intTheme], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-					} else if (intOpponentGrid[intRow][intCol] == 12) { // Sunk Ship 1 (H)
+					} else if (intOpponentGrid[intRow][intCol] == 12) { // Sunk Opponent Ship 1 (H)
 						g.drawImage(imgShipsSunkH[1][intTheme], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-					} else if (intOpponentGrid[intRow][intCol] == 21) { // Sunk Ship 2 (V)
+					} else if (intOpponentGrid[intRow][intCol] == 21) { // Sunk Opponent Ship 2 (V)
 						g.drawImage(imgShipsSunkV[2][intTheme], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-					} else if (intOpponentGrid[intRow][intCol] == 22) { // Sunk Ship 2 (H)
+					} else if (intOpponentGrid[intRow][intCol] == 22) { // Sunk Opponent Ship 2 (H)
 						g.drawImage(imgShipsSunkH[2][intTheme], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-					} else if (intOpponentGrid[intRow][intCol] == 31) { // Sunk Ship 3 (V)
+					} else if (intOpponentGrid[intRow][intCol] == 31) { // Sunk Opponent Ship 3 (V)
 						g.drawImage(imgShipsSunkV[3][intTheme], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-					} else if (intOpponentGrid[intRow][intCol] == 32) { // Sunk Ship 3 (H)
+					} else if (intOpponentGrid[intRow][intCol] == 32) { // Sunk Opponent Ship 3 (H)
 						g.drawImage(imgShipsSunkH[3][intTheme], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-					} else if (intOpponentGrid[intRow][intCol] == 41) { // Sunk Ship 4 (V) 
+					} else if (intOpponentGrid[intRow][intCol] == 41) { // Sunk Opponent Ship 4 (V) 
 						g.drawImage(imgShipsSunkV[4][intTheme], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-					} else if (intOpponentGrid[intRow][intCol] == 42) { // Sunk Ship 4 (H)
+					} else if (intOpponentGrid[intRow][intCol] == 42) { // Sunk Opponent Ship 4 (H)
 						g.drawImage(imgShipsSunkH[4][intTheme], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-					} else if (intOpponentGrid[intRow][intCol] == 51) { // Sunk Ship 5 (V)
+					} else if (intOpponentGrid[intRow][intCol] == 51) { // Sunk Opponent Ship 5 (V)
 						g.drawImage(imgShipsSunkV[5][intTheme], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-					} else if (intOpponentGrid[intRow][intCol] == 52) { // Sunk Ship 5 (H)
+					} else if (intOpponentGrid[intRow][intCol] == 52) { // Sunk Opponent Ship 5 (H)
 						g.drawImage(imgShipsSunkH[5][intTheme], (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-					} else if (intOpponentGrid[intRow][intCol] == 1) {
+					} else if (intOpponentGrid[intRow][intCol] == 1) { // Hit opponent ship (Draw circle)
 						g.drawImage(imgBattleshipHit, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
-					} else if (intOpponentGrid[intRow][intCol] == 2) {
+					} else if (intOpponentGrid[intRow][intCol] == 2) { // Missed opponent ship (Draw X)
 						g.drawImage(imgBattleshipMiss, (intCol - 1) * 64 + 80, (intRow - 1) * 64 + 80, null);
 					}
 				}
 			}
 		}
 		
-		if (blnPlayAnimation[1] == true) {
+		// Draw Animations
+		if (blnPlayAnimation[1] == true) { // Play the dropping bomb animation
 			try {
 				imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipBomb"+Integer.toString(intAnimCount)+".png"));
 			} catch (IOException e) {
 				System.out.println("Error: bomb animation");
 			}
 			g.drawImage(imgSprite, (intAnimationCol - 1) * 64 + 80, (intAnimationRow - 1) * 64 + 80, null);
-		} else if (blnPlayAnimation[2] == true) {
+		} else if (blnPlayAnimation[2] == true) { // Play the explosion animation
 			try {
 				imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipHitExplosion"+Integer.toString(intAnimCount)+".png"));
 			} catch (IOException e) {
 				System.out.println("Error: bomb animation");
 			}
 			g.drawImage(imgSprite, (intAnimationCol - 1) * 64 + 80, (intAnimationRow - 1) * 64 + 80, null);
-		} else if (blnPlayAnimation[3] == true) {
+		} else if (blnPlayAnimation[3] == true) { // Play the splash animation
 			try {
 				imgSprite = ImageIO.read(new File("Assets/Sprites/BattleshipSplash"+Integer.toString(intAnimCount)+".png"));
 			} catch (IOException e) {

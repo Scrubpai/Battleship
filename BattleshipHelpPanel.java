@@ -4,12 +4,11 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-
 public class BattleshipHelpPanel extends JPanel{
 	// Properties
 	Font font1 = new Font("SansSerif", Font.BOLD, 20);
 	Font font2 = new Font("SansSerif", Font.BOLD, 50);
-	BufferedImage imgShips[] = new BufferedImage[6];
+	BufferedImage imgShips[] = new BufferedImage[6]; // Ship images
 		
 	// Methods
 	public void paintComponent(Graphics g){
@@ -30,9 +29,9 @@ public class BattleshipHelpPanel extends JPanel{
 		g.drawImage(imgShips[3], 600, 220, null);
 		g.drawImage(imgShips[4], 750, 220, null);
 		g.drawImage(imgShips[5], 900, 220, null);
-		g.drawString("Goal: guess where your opponent's ships are located and sink them all", 300, 600);
-		
+		g.drawString("Goal: guess where your opponent's ships are located and sink them all", 300, 600);	
 	}
+	
 	// Constructor
 	public BattleshipHelpPanel() {
         super();
