@@ -65,6 +65,12 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	BattleshipThemesPanel themesPanel = new BattleshipThemesPanel();
 	JTextField themesField = new JTextField();
 	JButton homeButton = new JButton("Back Home");
+	JRadioButton themes1Button = new JRadioButton("Battlship");
+	JRadioButton themes2Button = new JRadioButton("Ducky");
+	JRadioButton themes3Button = new JRadioButton("Lego");
+	JRadioButton themes4Button = new JRadioButton("User Created");
+	ButtonGroup buttonGroup;
+	JButton confirmButton = new JButton("Confirm");
 
 		
 	// Methods
@@ -367,6 +373,20 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			theFrame.pack();
 			homePanel.repaint();
 		}
+		
+		if(evt.getSource() == confirmButton){
+			int intTheme;
+			if(themes1Button.isSelected()){
+				intTheme = 0;
+			}else if(themes2Button.isSelected()){
+				intTheme = 1;
+			}else if(themes3Button.isSelected()){
+				intTheme = 2;
+			}else if(themes4Button.isSelected()){
+				
+			}
+		}
+		
 	}
 	
 	public void mouseDragged(MouseEvent evt) {
@@ -812,6 +832,33 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		homeButton.setBounds(1000, 600, 200, 80);
 		homeButton.setFont(font1);
 		homeButton.addActionListener(this);
+		
+		themes1Button.setSize(300, 50);
+		themes1Button.setLocation(500, 300);
+		themesPanel.add(themes1Button);
+		
+		themes2Button.setSize(300, 50);
+		themes2Button.setLocation(500, 350);
+		themesPanel.add(themes2Button);
+		
+		themes3Button.setSize(300, 50);
+		themes3Button.setLocation(500, 400);
+		themesPanel.add(themes3Button);
+		
+		themes4Button.setSize(300, 50);
+		themes4Button.setLocation(500, 450);
+		themesPanel.add(themes4Button);
+		
+		buttonGroup = new ButtonGroup();
+		buttonGroup.add(themes1Button);
+		buttonGroup.add(themes2Button);
+		buttonGroup.add(themes3Button);
+		buttonGroup.add(themes4Button);
+		
+		confirmButton.setSize(300, 50);
+		confirmButton.setLocation(500, 500);
+		themesPanel.add(confirmButton);
+		themesButton.addActionListener(this);
 
 				
 		// Frame
