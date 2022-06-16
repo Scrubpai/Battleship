@@ -26,10 +26,12 @@ public class BattleshipThemesPanel extends JPanel{
 		g.setColor(Color.WHITE);
 		g.drawString("Pick Your Theme", 275, 100);
 		
-		
+
 		
 		
 	}
+	
+
 	//Constructor
 	public BattleshipThemesPanel(){
         super();

@@ -44,8 +44,8 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	BattleshipThemesPanel themesPanel = new BattleshipThemesPanel();
 	JTextField themesField = new JTextField();
 	JButton  homeButton = new JButton("Back Home");
-	
-	
+
+		
 	// Methods
 	public void actionPerformed(ActionEvent evt){
 		if(evt.getSource() == theTimer && playPanel.blnPlayingAnimation == false) {
@@ -454,6 +454,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			System.out.println();
 		}
 	}
+
 	
 	//Constructor
 	public BattleshipGame() {		
@@ -568,7 +569,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		homeButton.setBounds(1000, 600, 200, 80);
 		homeButton.setFont(font1);
 		homeButton.addActionListener(this);
-		
+				
 		// Frame
 		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		theFrame.setContentPane(homePanel);
@@ -583,5 +584,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	//Main Method
 	public static void main(String[] args) {
 		new BattleshipGame();
+		
+		
 	}
 }
