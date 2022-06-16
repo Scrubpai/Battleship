@@ -1,3 +1,9 @@
+// Battleship Home Panel
+// Authors: Louis Sun, Andy Li, Fergus Chui
+// ICS 4U1
+// June 16, 2022
+// Version 7.27
+
 import java.awt.*;
 import javax.swing.*;
 import java.io.*;
