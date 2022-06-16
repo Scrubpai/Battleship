@@ -40,7 +40,7 @@ public class BattleshipPlayPanel extends JPanel{
 	int intSunkCol = 0;
 	int intSunkValue = 0;
 	
-	int intTheme = 2;
+	int intTheme = 1;
 	int intThemetotal = 3;
 	
 	// Buffering Images
@@ -328,8 +328,13 @@ public class BattleshipPlayPanel extends JPanel{
 			imgShipsMiniH[2][0] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileShipMinimapH.png"));
 			imgShipsMiniH[3][0] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship3TileSubMinimapH.png"));
 			imgShipsMiniH[4][0] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship4TileShipMinimapH.png"));
-			imgShipsMiniH[5][0] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship5TileShipMinimapH.png"));
+			imgShipsMiniH[5][0] = ImageIO.read(new File("Assets/Sprites/Battleship Theme/Battleship5TileShipMinimapH.png"));		
 			
+		}catch(IOException e){
+			System.out.println("Error: Battleship imgs");
+		}
+		
+		try{
 			//Ducky Theme
 			imgLetters[1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/DuckyLetters.png"));
 			imgNumbers[1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/DuckyNumbers.png"));
@@ -339,7 +344,7 @@ public class BattleshipPlayPanel extends JPanel{
 			imgShipsV[3][1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/Ducky3TileGay.png"));
 			imgShipsV[4][1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/Ducky4TileFamily.png"));
 			imgShipsV[5][1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/Ducky5TileFamily.png"));
-			imgShipsH[1][1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/Ducky2DucklingsH.png"));
+			imgShipsH[1][1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/Ducky2TileDucklingsH.png"));
 			imgShipsH[2][1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/Ducky3TileFamilyH.png"));
 			imgShipsH[3][1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/Ducky3TileGayH.png"));
 			imgShipsH[4][1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/Ducky4TileFamilyH.png"));
@@ -367,7 +372,11 @@ public class BattleshipPlayPanel extends JPanel{
 			imgShipsMiniH[4][1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/Ducky4TileFamilyMinimapH.png"));
 			imgShipsMiniH[5][1] = ImageIO.read(new File("Assets/Sprites/Ducky Theme/Ducky5TileFamilyMinimapH.png"));
 			
-			
+		}catch(IOException e){
+			System.out.println("Error: Ducky imgs");
+		}
+		
+		try{
 			//Lego Theme
 			imgLetters[2] = ImageIO.read(new File("Assets/Sprites/Lego Theme/LegoLetters.png"));
 			imgNumbers[2] = ImageIO.read(new File("Assets/Sprites/Lego Theme/LegoNumbers.png"));
@@ -404,10 +413,9 @@ public class BattleshipPlayPanel extends JPanel{
 			imgShipsMiniH[3][2] = ImageIO.read(new File("Assets/Sprites/Lego Theme/Lego3TileGreenMinimapH.png"));
 			imgShipsMiniH[4][2] = ImageIO.read(new File("Assets/Sprites/Lego Theme/Lego4TileYellowMinimapH.png"));
 			imgShipsMiniH[5][2] = ImageIO.read(new File("Assets/Sprites/Lego Theme/Lego5TilePurpleMinimapH.png"));
-		
 			
 		}catch(IOException e){
-			System.out.println("Error: imgShips");
+			System.out.println("Error: Lego imgs");
 		}
 		
 	}
