@@ -37,7 +37,11 @@ public class BattleshipThemesPanel extends JPanel{
 		g.setColor(Color.WHITE);
 		g.drawString("Pick Your Theme", 275, 100);
 		
-
+		for(intCount = 0; intCount < intLine - 1; intCount++){
+			g.setFont(new Font("Arial.ttf", Font.PLAIN, 100));
+			g.setColor(Color.WHITE);
+			g.drawString("strThemes[intCount]", 275, 100);
+		}
 		
 		
 	}

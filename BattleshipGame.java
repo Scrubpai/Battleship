@@ -64,7 +64,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	//Themes Panel
 	BattleshipThemesPanel themesPanel = new BattleshipThemesPanel();
 	JTextField themesField = new JTextField();
-	JButton  homeButton = new JButton("Back Home");
+	JButton homeButton = new JButton("Back Home");
 
 		
 	// Methods
