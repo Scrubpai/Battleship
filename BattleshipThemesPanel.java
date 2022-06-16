@@ -10,6 +10,17 @@ public class BattleshipThemesPanel extends JPanel{
 	//Buffered reader for the image	
 	BufferedImage imgBackground = null;
 	
+	//Read the file into an array
+	BufferedReader themes = null;
+	
+	//Variables for string
+	int intCount;
+	int intLine = 0;
+	
+	String strLine = "";
+	
+	
+
 	//Methods
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
@@ -35,12 +46,64 @@ public class BattleshipThemesPanel extends JPanel{
 	//Constructor
 	public BattleshipThemesPanel(){
         super();
+		
+		//Buffer Background Image
 		try{
-			//Import the image
 			imgBackground = ImageIO.read(new File("Assets/Sprites/TitleScreen.png"));
-        }catch(IOException e){
-            System.out.println("Error: Printing Image");
-        } 
+		}catch(IOException e){
+			System.out.println("Error: Background Img");
+		}
+		
+		//Count how many lines in file
+		//Try to open file to read 
+		try{
+			themes = new BufferedReader(new FileReader("themes.txt"));
+		}catch(FileNotFoundException e){
+			System.out.println("File not found!!!");
+		}
+		
+		while(strLine != null){
+			try{
+				strLine = themes.readLine();
+			}catch(IOException e){
+				System.out.println("Error reading from file");
+			}
+			intLine++;
+		}
+		
+		//Try to close file
+		try{
+			themes.close();
+		}catch(IOException e){
+			System.out.println("Unable to close file");
+		}
+		
+		
+		//Put lines into array
+		//Try to open file to read 
+		try{
+			themes = new BufferedReader(new FileReader("themes.txt"));
+		}catch(FileNotFoundException e){
+			System.out.println("File not found!!!");
+		}
+		
+		String strThemes[] = new String[intLine];
+		for(intCount = 0; intCount < intLine - 1; intCount++){
+			try{
+				strThemes[intCount] = themes.readLine();
+			}catch(IOException e){
+				System.out.println("Error reading from file");
+			}
+			System.out.println(strThemes[intCount]);
+		}
+		
+		
+		//Try to close file
+		try{
+			themes.close();
+		}catch(IOException e){
+			System.out.println("Unable to close file");
+		}
         
     }
 	
