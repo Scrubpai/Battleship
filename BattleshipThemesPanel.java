@@ -18,7 +18,7 @@ public class BattleshipThemesPanel extends JPanel{
 	int intLine = 0;
 	
 	String strLine = "";
-	
+	String strThemes[];
 	
 
 	//Methods
@@ -78,6 +78,7 @@ public class BattleshipThemesPanel extends JPanel{
 			System.out.println("Unable to close file");
 		}
 		
+		strThemes = new String[intLine];
 		//Put lines into array
 		//Try to open file to read 
 		try{
@@ -86,7 +87,6 @@ public class BattleshipThemesPanel extends JPanel{
 			System.out.println("File not found!!!");
 		}
 		
-		String strThemes[] = new String[intLine];
 		for(intCount = 0; intCount < intLine - 1; intCount++){
 			try{
 				strThemes[intCount] = themes.readLine();
