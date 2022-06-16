@@ -65,9 +65,9 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	BattleshipThemesPanel themesPanel = new BattleshipThemesPanel();
 	JTextField themesField = new JTextField();
 	JButton homeButton = new JButton("Back Home");
-	JRadioButton themes1Button = new JRadioButton("Battlship");
-	JRadioButton themes2Button = new JRadioButton("Ducky");
-	JRadioButton themes3Button = new JRadioButton("Lego");
+	JRadioButton themes1Button = new JRadioButton(themesPanel.strThemes[0]);
+	JRadioButton themes2Button = new JRadioButton(themesPanel.strThemes[1]);
+	JRadioButton themes3Button = new JRadioButton(themesPanel.strThemes[2]);
 	JRadioButton themes4Button = new JRadioButton(themesPanel.strThemes[3]);
 	ButtonGroup buttonGroup;
 	JButton confirmButton = new JButton("Confirm");
