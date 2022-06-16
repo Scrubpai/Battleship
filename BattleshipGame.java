@@ -71,6 +71,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	JRadioButton themes4Button = new JRadioButton(themesPanel.strThemes[3]);
 	ButtonGroup buttonGroup;
 	JButton confirmButton = new JButton("Confirm");
+	JLabel themesLabel;
 
 		
 	// Methods
@@ -377,12 +378,16 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		if(evt.getSource() == confirmButton){
 			if(themes1Button.isSelected()){
 				playPanel.intTheme = 0;
+				themesLabel.setText(themesPanel.strThemes[0] + " theme is selected");
 			}else if(themes2Button.isSelected()){
 				playPanel.intTheme = 1;
+				themesLabel.setText(themesPanel.strThemes[1] + " theme is selected");
 			}else if(themes3Button.isSelected()){
 				playPanel.intTheme = 2;
+				themesLabel.setText(themesPanel.strThemes[2] + " theme is selected");
 			}else if(themes4Button.isSelected()){
 				playPanel.intTheme = 3;
+				themesLabel.setText(themesPanel.strThemes[3] + " theme is selected");
 			}
 		}
 		
@@ -858,6 +863,11 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		confirmButton.setLocation(500, 500);
 		themesPanel.add(confirmButton);
 		confirmButton.addActionListener(this);
+		
+		themesLabel = new JLabel("", SwingConstants.CENTER);
+		themesLabel.setSize(400,100);
+		themesLabel.setLocation(800,300);
+		themesPanel.add(themesLabel);
 
 				
 		// Frame
