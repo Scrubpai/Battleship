@@ -40,7 +40,7 @@ public class BattleshipPlayPanel extends JPanel{
 	int intSunkCol = 0;
 	int intSunkValue = 0;
 	
-	int intTheme = 1;
+	int intTheme = 2;
 	int intThemetotal = 3;
 	
 	// Buffering Images

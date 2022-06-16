@@ -812,6 +812,7 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 		homeButton.setBounds(1000, 600, 200, 80);
 		homeButton.setFont(font1);
 		homeButton.addActionListener(this);
+
 				
 		// Frame
 		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
