@@ -78,7 +78,6 @@ public class BattleshipThemesPanel extends JPanel{
 			System.out.println("Unable to close file");
 		}
 		
-		
 		//Put lines into array
 		//Try to open file to read 
 		try{
