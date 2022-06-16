@@ -72,7 +72,6 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	ButtonGroup buttonGroup;
 	JButton confirmButton = new JButton("Confirm");
 	JLabel themesLabel;
-
 		
 	// Methods
 	public void actionPerformed(ActionEvent evt){
@@ -418,8 +417,14 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 			int intCol = calcRow(evt.getX());
 			System.out.println(intRow + " " + intCol);
 			
+			if (playPanel.blnStartGame == true && playPanel.blnPlayingAnimation == false && playPanel.blnGameOver == true) {
+				if (evt.getX() > 830 && evt.getX() < 980 && evt.getY() > 177 && evt.getY() < 317) {
+					System.exit(1);
+				}
+			}
+			
 			if (intRow >= 1 && intRow <= 10 && intCol >= 1 && intCol <= 10 && playPanel.blnYourTurn == true && playPanel.blnStartGame == true && playPanel.blnPlayingAnimation == false) {
-				if (playPanel.intOpponentGrid[intRow][intCol] != 0) {
+				if (playPanel.intOpponentGrid[intRow][intCol] != 0 || playPanel.blnGameOver == true) {
 					return;
 				}
 				String strLetter = playPanel.strLetters[intCol];
@@ -432,12 +437,6 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 				
 				yourMsgField.setText(strLetter + strNumber);
 				ssm.sendText(strLetter + strNumber);
-			}
-			
-			if (playPanel.blnStartGame == true && playPanel.blnPlayingAnimation == false && playPanel.blnGameOver == true) {
-				if (evt.getX() > 830 && evt.getX() < 980 && evt.getY() > 177 && evt.getY() < 317) {
-					System.exit(1);
-				}
 			}
 		} else if (theFrame.getContentPane() == helpPanel2 && helpPanel2.blnClickHit == true) {
 			System.out.println("here");
@@ -884,7 +883,5 @@ public class BattleshipGame implements ActionListener, MouseListener, MouseMotio
 	//Main Method
 	public static void main(String[] args) {
 		new BattleshipGame();
-		
-		
 	}
 }

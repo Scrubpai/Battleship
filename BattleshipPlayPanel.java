@@ -9,62 +9,282 @@ import java.awt.image.BufferedImage;
 
 public class BattleshipPlayPanel extends JPanel{
 	// Properties
-	boolean blnHorizontal = false;
+	
+	/**
+	 * This is true if the ships are rotated horizontally. False if rotate vertically
+	 */
+	public boolean blnHorizontal = false;
+	
+	/**
+	 * Stores the letters which correspond to each column on the grid. strLetters[1] = A, strLetters[2] = B, ... 
+	 */
 	String strLetters[] = new String[11];
+	
+	/**
+	 * Stores the default click area for each battleship when they are vertical and haven't been placed on the map yet
+	 * For ex, top left coordinate is (intDefaultPositionsV[][0], inintDefaultPositionsV[][1]), bottom right coordinate is (intDefaultPositionsV[][2], intDefaultPositionsV[][3])
+	 */
 	int intDefaultPositionsV[][] = new int[6][4];
+	
+	/**
+	 * Stores the default click area for each battleship when they are horizontal and haven't been placed on the map yet
+	 * For ex, top left coordinate is (intDefaultPositionsV[][0], inintDefaultPositionsV[][1]), bottom right coordinate is (intDefaultPositionsV[][2], intDefaultPositionsV[][3])
+	 */
 	int intDefaultPositionsH[][] = new int[6][4];
-	int intPositions[][] = new int[6][2]; // [0] - width, [1] - height
+	
+	/**
+	 * Stores the location that each of YOUR battleships should be drawn to the screen
+	 * The coordinate of the battleship is (intPositions[][0], intPositions[][1])
+	 */
+	int intPositions[][] = new int[6][2];
+	
+	/**
+	 * Stores the size of each ship
+	 * For ex, the size of ship 1 is intSizes[1]
+	 */
 	int intSizes[] = new int[6];
-	int intPlaced[] = new int[6]; // 0 - Not Placed, 1 - Vertical, 2 - Horizontal
+	
+	/**
+	 * Determines the status of the ship (whether it has been placed for not)
+	 * 0 - Not Placed, 1 - Placed Vertically, 2 - Placed Horizontally
+	 */
+	int intPlaced[] = new int[6];
+	
+	/**
+	 * Stores the grid representing your map of battleships (the minimap)
+	 * -1 represents that your opponent has missed
+	 * 10, 20, 30, 40, 50 represents that your ships 1, 2, 3, 4, 5 has been hit, respectively
+	 */
 	int intYourGrid[][] = new int[11][11];
-	int intOpponentGrid[][] = new int[11][11]; // 1 - Hit, 2 - Miss
+	
+	/**
+	 * Stores the grid representing your guesses of your opponent's ships
+	 * 11 - Ship 1 has been sunk and it is vertical
+	 * 12 - Ship 1 has been sunk and it is horizontal
+	 * 21 - Ship 2 has been sunk and it is vertical
+	 * 22 - Ship 2 has been sunk and it is horizontal
+	 * 31 - Ship 3 has been sunk and it is vertical
+	 * 32 - Ship 3 has been sunk and it is horizontal
+	 * 41 - Ship 4 has been sunk and it is vertical
+	 * 42 - Ship 4 has been sunk and it is horizontal
+	 * 51 - Ship 5 has been sunk and it is vertical
+	 * 52 - Ship 5 has been sunk and it is horizontal
+	 * 1 - A ship has been hit (may not be sunk yet)
+	 * 2 - Your guess is a miss
+	 */
+	int intOpponentGrid[][] = new int[11][11];
+	
+	/**
+	 * Represents the ship you have selected when you are dragging and dropping the ships onto the map
+	 */
 	int intShipSelected = 0;
+	
+	/**
+	 * Your HP. If this reaches 0, it means all your ships have been sunk
+	 */
 	int intHealth = 17;
+	
+	/**
+	 * True if the game has started (both players have pressed ready). False if the game has not started.
+	 */
 	boolean blnStartGame = false;
-	boolean blnYourTurn = false; // Server goes first
+	
+	/**
+	 * True if it is your turn to fire. False if it is not your turn
+	 */
+	boolean blnYourTurn = false;
+	
+	/**
+	 * True if you have hit your opponent's ship. False if you missed
+	 */
 	boolean blnHit = false;
 	
+	/**
+	 * The row which the bomb/explosion/splash animation should be played
+	 */
 	int intAnimationRow = 0;
-	int intAnimationCol = 0;
-	int intAnimCount = 0;
-	boolean blnPlayingAnimation = false;
-	boolean blnPlayAnimation[] = new boolean[4]; // 1 - Bomb, 2 - Explosion, 3 - Splash
-	int intMaxAnimationSprites[] = new int[4]; // 1 - Bomb, 2 - Explosion, 3 - Splash
 	
+	/**
+	 * The column which the bomb/explosion/splash animation should be played
+	 */
+	int intAnimationCol = 0;
+	
+	/**
+	 * The sprite which the animation is currently displaying
+	 */
+	int intAnimCount = 0;
+	
+	/**
+	 * True if an animation is currently playing. False if an animation is not currently playing
+	 */
+	boolean blnPlayingAnimation = false;
+	
+	/**
+	 * blnPlayAnimation[1] represents the bomb animation
+	 * blnPlayAnimation[2] represents the explosion animation
+	 * blnPlayAnimation[3] represents the splash animation
+	 * 
+	 * blnPlayAnimation[i] = true means that the i-th animation is currently playing
+	 */
+	boolean blnPlayAnimation[] = new boolean[4];
+	
+	/**
+	 * Represents the maximum number of sprites/frames that each animation has
+	 * intMaxAnimationSprites[1] reprents the bomb animation
+	 * intMaxAnimationSprites[2] reprents the explosion animation
+	 * intMaxAnimationSprites[3] reprents the splash animation
+	 */
+	int intMaxAnimationSprites[] = new int[4];
+	
+	/**
+	 * Represents the number of times each ship has been hit
+	 */
 	int intShipHits[] = new int[6];
+	
+	/**
+	 * Represents the number of YOUR ships that have been sunk
+	 */
 	int intShipsSunk = 0;
-	int intWinLose = 0; // 1 - win 2 - lose.
+	
+	/**
+	 * 1 means that you have won, 2 means that you lost
+	 */
+	int intWinLose = 0;
+	
+	/**
+	 * True if the game is over
+	 */
 	boolean blnGameOver = false;
 	
+	/**
+	 * The row that the currently sunk ship is located at
+	 */
 	int intSunkRow = 0;
+	
+	/**
+	 * The column that the currently sunk ship is located at
+	 */
 	int intSunkCol = 0;
+	
+	/**
+	 * Used to update the value of intOpponentGrid[][]
+	 */
 	int intSunkValue = 0;
 	
+	/**
+	 * The current theme that is selected
+	 * 0 - Battleship
+	 * 1 - Ducky
+	 * 2 - Lego
+	 * 3 - User Created Theme
+	 */
 	int intTheme = 0;
-	int intThemetotal = 3;
+	
+	/**
+	 * The total number of themes currently available
+	 */
+	int intThemetotal = 4;
 	
 	// Buffering Images
+	/**
+	 * Stores the images for the column axis (A-J)
+	 */
 	BufferedImage imgLetters[] = new BufferedImage[intThemetotal];
+	
+	/**
+	 * Stores the images for the row axis (1-10)
+	 */
 	BufferedImage imgNumbers[] = new BufferedImage[intThemetotal];
+	
+	/**
+	 * Stores the image for the water
+	 */
 	BufferedImage imgWater = null;
+	
+	/**
+	 * Stores the image for the box where the ships are dragged from and dropped onto the map
+	 */
 	BufferedImage imgBox = null;
+	
+	/**
+	 * Stores the image of your minimap
+	 */
 	BufferedImage imgMinimap = null;
+	
+	/**
+	 * Stores the image of the pause button on the top left
+	 */
 	BufferedImage imgPause = null;
+	
+	/**
+	 * Stores the win image
+	 */
 	BufferedImage imgWin = null;
+	
+	/**
+	 * Stores the lose image
+	 */
 	BufferedImage imgLose = null;
+	
+	/**
+	 * Stores the images of vertical ships (on the blue map)
+	 */
 	BufferedImage imgShipsV[][] = new BufferedImage[6][intThemetotal];
+	
+	/**
+	 * Stores the images of horizontal ships (on the blue map)
+	 */
 	BufferedImage imgShipsH[][] = new BufferedImage[6][intThemetotal];
+	
+	/**
+	 * Stores the images of the minimap vertical ships
+	 */
 	BufferedImage imgShipsMiniV[][] = new BufferedImage[6][intThemetotal];
+	
+	/**
+	 * Stores the images of the minimap horizontal ships
+	 */
 	BufferedImage imgShipsMiniH[][] = new BufferedImage[6][intThemetotal];
+	
+	/**
+	 * Stores the images of the vertical sunk ships (on the blue map)
+	 */
 	BufferedImage imgShipsSunkV[][] = new BufferedImage[6][intThemetotal];
+	
+	/**
+	 * Stores the images of the horizontal sunk ships (on the blue map)
+	 */
 	BufferedImage imgShipsSunkH[][] = new BufferedImage[6][intThemetotal];
-	BufferedImage imgSprite = null; // For animation
+	
+	/**
+	 * Stores the image for each sprite/frame for animations
+	 */
+	BufferedImage imgSprite = null;
+	
+	/**
+	 * Stores the symbol representing a minimap hit (a circle)
+	 */
 	BufferedImage imgMinimapHit = null;
+	
+	/**
+	 * Stores the symbol representing a minimap miss (an X)
+	 */
 	BufferedImage imgMinimapMiss = null;
+	
+	/**
+	 * Stores the symbol representing a guessed hit (a big blue circle)
+	 */
 	BufferedImage imgBattleshipHit = null;
+	
+	/**
+	 * Stores the symbol repersenting a guessed miss (a big red X)
+	 */
 	BufferedImage imgBattleshipMiss = null;
 	
 	// Methods
+	/**
+	 * Repaints the play panel so that the gameplay visuals are updated. Draws all the assets onto the screen
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
@@ -206,6 +426,9 @@ public class BattleshipPlayPanel extends JPanel{
 	}
 	
 	// Constructor
+	/**
+	 * This is the constructor of the play panel. It initializes some default values related to ship sizes and positions, and also loads all the images.
+	 */
 	public BattleshipPlayPanel(){
 		super();
 		intSizes[1] = 2;
